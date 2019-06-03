@@ -1,4 +1,4 @@
-package com.saman.tutorial.kotlin
+package com.saman.tutorial.kotlin.oop
 
 import com.saman.tutorial.kotlin.oop.MessagePrinter
 import org.junit.Test

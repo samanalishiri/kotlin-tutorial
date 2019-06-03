@@ -1,6 +1,5 @@
-package com.saman.tutorial.kotlin
+package com.saman.tutorial.kotlin.gettingstart
 
-import com.saman.tutorial.kotlin.gettingstart.hello
 import org.junit.Test
 
 class HelloTest {
