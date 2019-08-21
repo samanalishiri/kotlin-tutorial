@@ -9,9 +9,7 @@ import java.util.logging.Logger
 
 class ArrayTest {
 
-    companion object {
-        val LOG = Logger.getLogger(ArrayTest.javaClass.simpleName);
-    }
+    val LOG = Logger.getLogger(ArrayTest::class.java.simpleName);
 
     @Test
     fun createEmptyArray() {
@@ -33,7 +31,7 @@ class ArrayTest {
 
         (0 until 11).forEach { item -> collection.add(item) }
 
-        assertEquals(collection.getSize(), 20)
+        assertEquals(20, collection.getSize())
     }
 
 

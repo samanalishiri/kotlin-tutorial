@@ -1,13 +1,17 @@
 package com.saman.tutorial.kotlin.oop
 
-import com.saman.tutorial.kotlin.oop.MessagePrinter
 import org.junit.Test
+import kotlin.test.assertEquals
 
 class MessagePrinterTest {
 
     @Test
     internal fun testPrintAMessage() {
-        MessagePrinter(arrayOf("A","B","C","D"))
-                .print()
+        val message = Message(arrayOf("A", "B", "C", "D"))
+
+        assertEquals(message.concat(), "A,B,C,D")
+
+        var printer: Printer = ConsolePrinter(message)
+        printer.print()
     }
 }
