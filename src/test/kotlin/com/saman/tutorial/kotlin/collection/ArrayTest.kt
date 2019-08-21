@@ -1,32 +1,41 @@
 package com.saman.tutorial.kotlin.collection
 
+import com.saman.tutorial.kotlin.collection.NumberArray.Companion.arrayOfInts
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThat
 import org.junit.Test
+import java.util.logging.Logger
 
 class ArrayTest {
 
+    companion object {
+        val LOG = Logger.getLogger(ArrayTest.javaClass.simpleName);
+    }
+
     @Test
     fun createEmptyArray() {
-        val collection = ArrayCollection()
-        assertEquals(collection.getSize(), 0)
+        val collection = NumberArray()
+        assertThat(collection.getAll(), `is`(arrayOfInts(10)))
     }
 
     @Test
     fun addOneElement() {
-        val collection = ArrayCollection()
+        val collection = NumberArray()
         collection.add(1)
 
-        assertThat(collection.getAll(), `is`(arrayOf(1)))
+        assertThat(collection.getAll(), `is`(arrayOfInts(10, 1)))
     }
 
     @Test
     fun addElementOverTheSizeOfCurrentCollection() {
-        val collection = ArrayCollection()
-        collection.add(1)
-        collection.add(2)
+        val collection = NumberArray()
 
-        assertThat(collection.getAll(), `is`(arrayOf(1, 2)))
+        (0 until 11).forEach { item -> collection.add(item) }
+
+        assertEquals(collection.getSize(), 20)
     }
+
+
+
 }
