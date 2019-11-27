@@ -4,7 +4,7 @@ class NumberArray {
 
     companion object {
         fun arrayOfInts(size: Int = 10, vararg input: Int): Array<Int?> {
-            val elements = arrayOfNulls<Int>(size)
+            val elements: Array<Int?> = arrayOfNulls(size)
 
             input?.let { (0 until input.size).forEach { index -> elements[index] = input[index] } }
 
@@ -12,7 +12,7 @@ class NumberArray {
         }
 
         fun arrayOfInts(size: Int = 10, input: Array<Int?>): Array<Int?> {
-            val elements = arrayOfNulls<Int>(size)
+            val elements: Array<Int?> = arrayOfNulls(size)
 
             input?.let { (0 until input.size).forEach { index -> elements[index] = input[index] } }
 

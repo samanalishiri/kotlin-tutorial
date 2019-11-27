@@ -2,7 +2,7 @@ package com.saman.tutorial.kotlin.gettingstart
 
 import org.junit.Test
 
-class HelloTest {
+class HelloWorldTest {
 
     @Test
     fun testPrintHelloWithDefaultName() {
@@ -10,7 +10,7 @@ class HelloTest {
     }
 
     @Test
-    fun testPrintHelloWithWorldName() {
+    fun testPrintHelloWorldWithSpecificName() {
         hello("World")
     }
 }

@@ -7,18 +7,18 @@ import org.junit.Assert.assertThat
 import org.junit.Test
 import java.util.logging.Logger
 
-class ArrayTest {
+class NumberArrayTest {
 
-    val LOG = Logger.getLogger(ArrayTest::class.java.simpleName);
+    val LOG = Logger.getLogger(NumberArrayTest::class.java.simpleName);
 
     @Test
-    fun createEmptyArray() {
+    fun whenCreateEmptyArray_thenReturnArrayWithTenNullObject() {
         val collection = NumberArray()
         assertThat(collection.getAll(), `is`(arrayOfInts(10)))
     }
 
     @Test
-    fun addOneElement() {
+    fun whenAddOneElement_thenReturnArrayWithOneElementAndNoneNullObject() {
         val collection = NumberArray()
         collection.add(1)
 
@@ -26,14 +26,14 @@ class ArrayTest {
     }
 
     @Test
-    fun addElementOverTheSizeOfCurrentCollection() {
+    fun whenAddOneElementOverTheSizeOfCurrentCollection_thenCreateArrayWithOldElementsAndNewElementAndNineNullObject() {
         val collection = NumberArray()
 
-        (0 until 11).forEach { item -> collection.add(item) }
+        (0 until 11).forEach(action = collection::add)
 
         assertEquals(20, collection.getSize())
+        assertThat(collection.getAll(), `is`(arrayOfInts(20, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)))
     }
-
 
 
 }
