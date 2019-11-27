@@ -1,20 +1,25 @@
 package com.saman.tutorial.kotlin.pattern
+
 /**
  * this class is singleton
  * */
-object StringPool {
+object StringStack {
     private val pool = mutableSetOf<String>()
 
-    fun add(element: String){
+    fun add(element: String) {
         pool.add(element)
     }
 
-    fun get():String{
-        return pool.first()
+    fun get(): String {
+        return pool.last()
     }
 
-    fun size():Int{
+    fun size(): Int {
         return pool.size
+    }
+
+    fun clear() {
+        pool.clear();
     }
 
 }
