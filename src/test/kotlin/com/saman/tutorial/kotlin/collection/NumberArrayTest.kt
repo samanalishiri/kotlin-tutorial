@@ -18,7 +18,7 @@ class NumberArrayTest {
     }
 
     @Test
-    fun whenAddOneElement_thenReturnArrayWithOneElementAndNoneNullObject() {
+    fun whenAddOneElement_thenReturnArrayWithOneElementAndNineNullObject() {
         val collection = NumberArray()
         collection.add(1)
 
