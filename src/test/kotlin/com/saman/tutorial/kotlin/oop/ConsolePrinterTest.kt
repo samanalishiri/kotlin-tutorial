@@ -3,7 +3,7 @@ package com.saman.tutorial.kotlin.oop
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class MessagePrinterTest {
+class ConsolePrinterTest {
 
     @Test
     internal fun testPrintAMessage() {
@@ -11,7 +11,6 @@ class MessagePrinterTest {
 
         assertEquals(message.concat(), "A,B,C,D")
 
-        var printer: Printer = ConsolePrinter(message)
-        printer.print()
+        ConsolePrinter(message).print()
     }
 }
