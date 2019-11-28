@@ -14,6 +14,8 @@ class NumberArrayTest {
     @Test
     fun whenCreateEmptyArray_thenReturnArrayWithTenNullObject() {
         val collection = NumberArray()
+        assertEquals(10, collection.getSize())
+        assertEquals(-1, collection.lastIndex())
         assertThat(collection.getAll(), `is`(arrayOfInts(10)))
     }
 
@@ -22,6 +24,8 @@ class NumberArrayTest {
         val collection = NumberArray()
         collection.add(1)
 
+        assertEquals(10, collection.getSize())
+        assertEquals(0, collection.lastIndex())
         assertThat(collection.getAll(), `is`(arrayOfInts(10, 1)))
     }
 
@@ -32,6 +36,7 @@ class NumberArrayTest {
         (0 until 11).forEach(action = collection::add)
 
         assertEquals(20, collection.getSize())
+        assertEquals(10, collection.lastIndex())
         assertThat(collection.getAll(), `is`(arrayOfInts(20, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)))
     }
 
