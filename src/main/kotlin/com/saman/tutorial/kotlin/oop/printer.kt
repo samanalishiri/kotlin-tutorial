@@ -4,15 +4,30 @@ interface Printer {
     fun print()
 }
 
-class Message(private val texts: Array<String> = emptyArray()) {
+data class Message(private val texts: Array<String> = emptyArray()) {
 
-    fun concat(): String {
+    override fun toString(): String {
         return texts.joinToString(separator = ",")
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Message
+
+        if (!texts.contentEquals(other.texts)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return texts.contentHashCode()
     }
 }
 
 class ConsolePrinter(private val message: Message) : Printer {
     override fun print() {
-        println(message.concat())
+        println(message)
     }
 }
