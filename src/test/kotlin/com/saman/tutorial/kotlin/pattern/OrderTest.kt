@@ -20,6 +20,19 @@ class OrderTest {
     }
 
     @Test
+    fun whenTheCustomerOrderedTwoMenu_thenSizeOfMenuShouldBeTwo() {
+        val tableOneIsOrdering = Order.Builder(table = 1)
+                .menu("Coffee")
+                .menu("Red Win")
+                .additional("More sugar for coffee")
+                .build()
+
+        assertEquals(2, tableOneIsOrdering.menus.size)
+        assertEquals(1, tableOneIsOrdering.version)
+        assertEquals(ORDERING_STATUS, tableOneIsOrdering.status)
+    }
+
+    @Test
     fun whenTheCustomerGetTheOrder_thenReturnIsHandedOverStatus() {
         val coffee = Order.Builder(table = 1)
                 .menu("Coffee")

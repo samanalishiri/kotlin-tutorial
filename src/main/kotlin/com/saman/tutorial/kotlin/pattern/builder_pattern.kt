@@ -14,10 +14,10 @@ data class Order(val table: Int, val menus: List<String>, val additional: String
         val order = this
 
         return Builder(table = order.table)
-                .apply { this.status = IS_HANDED_OVER_STATUS }
                 .apply { this.menus = order.menus }
-                .apply { this.version = order.version.plus(1) }
                 .additional(order.additional)
+                .apply { this.status = IS_HANDED_OVER_STATUS }
+                .apply { this.version = order.version.plus(1) }
                 .build()
     }
 
