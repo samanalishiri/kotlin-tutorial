@@ -8,6 +8,12 @@ class Person internal constructor(private val kind: KindOfPerson) {
 
     private var name: String = ""
 
+    companion object {
+        fun create(kind: KindOfPerson, name: String): Person {
+            return Person(kind).setName(name)
+        }
+    }
+
     fun setName(name: String): Person {
         this.name = name
         return this
@@ -17,9 +23,11 @@ class Person internal constructor(private val kind: KindOfPerson) {
         return name
     }
 
-    companion object {
-        fun create(kind: KindOfPerson, name: String): Person {
-            return Person(kind).setName(name)
-        }
+    fun isMan(): Boolean {
+        return KindOfPerson.MALE == this.kind
+    }
+
+    fun isFemale(): Boolean {
+        return KindOfPerson.FEMALE == this.kind
     }
 }
