@@ -1,6 +1,6 @@
 package com.saman.tutorial.kotlin.pattern
 
-data class Order(val table: Int, val menus: List<String>, val additional: String?, val status: String, val version: Int) {
+data class Order(val table: Int, val menu: List<String>, val additional: String?, val status: String, val version: Int) {
 
     companion object {
         const val ORDERING_STATUS = "ORDERING"
@@ -8,13 +8,13 @@ data class Order(val table: Int, val menus: List<String>, val additional: String
     }
 
     private constructor(builder: Builder) :
-            this(builder.table, builder.menus, builder.additional, builder.status, builder.version)
+            this(builder.table, builder.menu, builder.additional, builder.status, builder.version)
 
-    fun isHandedOver(): Order {
+    fun handedOver(): Order {
         val order = this
 
         return Builder(table = order.table)
-                .apply { this.menus = order.menus }
+                .apply { this.menu = order.menu }
                 .additional(order.additional)
                 .apply { this.status = IS_HANDED_OVER_STATUS }
                 .apply { this.version = order.version.plus(1) }
@@ -22,7 +22,7 @@ data class Order(val table: Int, val menus: List<String>, val additional: String
     }
 
     class Builder(val table: Int) {
-        var menus: List<String> = mutableListOf()
+        var menu: List<String> = mutableListOf()
             internal set
 
         var additional: String? = null
@@ -34,7 +34,7 @@ data class Order(val table: Int, val menus: List<String>, val additional: String
         var version: Int = 1
             internal set
 
-        fun menu(menu: String) = apply { this.menus = this.menus.plus(menu) }
+        fun menu(menu: String) = apply { this.menu = this.menu.plus(menu) }
 
         fun additional(additional: String?) = apply { this.additional = additional }
 

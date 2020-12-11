@@ -14,7 +14,7 @@ class OrderTest {
                 .additional("More sugar")
                 .build()
 
-        assertEquals(1, coffee.menus.size)
+        assertEquals(1, coffee.menu.size)
         assertEquals(1, coffee.version)
         assertEquals(ORDERING_STATUS, coffee.status)
     }
@@ -27,7 +27,7 @@ class OrderTest {
                 .additional("More sugar for coffee")
                 .build()
 
-        assertEquals(2, tableOneIsOrdering.menus.size)
+        assertEquals(2, tableOneIsOrdering.menu.size)
         assertEquals(1, tableOneIsOrdering.version)
         assertEquals(ORDERING_STATUS, tableOneIsOrdering.status)
     }
@@ -39,13 +39,13 @@ class OrderTest {
                 .additional("More sugar")
                 .build()
 
-        assertEquals(1, coffee.menus.size)
+        assertEquals(1, coffee.menu.size)
         assertEquals(1, coffee.version)
         assertEquals(ORDERING_STATUS, coffee.status)
 
-        val wasHandedOverCoffee = coffee.isHandedOver()
+        val wasHandedOverCoffee = coffee.handedOver()
 
-        assertEquals(1, wasHandedOverCoffee.menus.size)
+        assertEquals(1, wasHandedOverCoffee.menu.size)
         assertEquals(2, wasHandedOverCoffee.version)
         assertEquals(IS_HANDED_OVER_STATUS, wasHandedOverCoffee.status)
     }
