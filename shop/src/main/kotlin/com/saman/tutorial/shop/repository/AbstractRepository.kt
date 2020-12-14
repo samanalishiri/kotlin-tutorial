@@ -6,11 +6,13 @@ import com.saman.tutorial.shop.storage.Storage
 import com.saman.tutorial.shop.storage.StorageProvider.STORAGE_BEAN
 import java.util.*
 import java.util.Optional.ofNullable
+import java.util.stream.Collectors
 
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
-abstract class AbstractRepository<I, M : AbstractModel<I>, B : AbstractModel.AbstractBuilder<I, M>> : Crud<I, M> {
+abstract class AbstractRepository<I, M : AbstractModel<I>, B : AbstractModel.AbstractBuilder<I, M>> :
+        Crud<I, M>, ReadOnly<I, M> {
 
     private val storage: Storage = BeanFactory.getBean(STORAGE_BEAN)
 
@@ -36,5 +38,16 @@ abstract class AbstractRepository<I, M : AbstractModel<I>, B : AbstractModel.Abs
 
     override fun deleteById(id: I) {
         storage.delete(getMapName(), id)
+    }
+
+    override fun findAll(): List<M> {
+        val map: Optional<MutableMap<I, M>> = storage.get(getMapName())
+        if (!map.isPresent)
+            return Collections.emptyList()
+
+        return map.get().entries
+                .stream()
+                .map { it.value }
+                .collect(Collectors.toList())
     }
 }
