@@ -1,17 +1,18 @@
 package com.saman.tutorial.shop.model
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
+import org.junit.Assert.*
 import org.junit.Test
 
 class GroupTest {
 
     @Test
-    fun GivenName_WhenCreateNewGroup_ThenReturnGroup() {
+    fun test001_GivenName_WhenBuildNewGroup_ThenReturnGroup() {
         val group: Group = Group.Builder().name("Furniture").build()
+        assertNotNull(group)
         assertNull(group.id)
         assertEquals(0, group.version)
         assertEquals("Furniture", group.name)
+        assertEquals("Furniture", group.toString())
     }
 
 }

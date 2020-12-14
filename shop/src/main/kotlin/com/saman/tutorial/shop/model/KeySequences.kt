@@ -12,5 +12,7 @@ interface KeySequences {
 
         val GOODS_SEQUENCE: AtomicInteger = AtomicInteger(1);
 
+        val PACK_SEQUENCE: AtomicInteger = AtomicInteger(1);
+
     }
 }

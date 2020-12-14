@@ -1,7 +1,7 @@
 package com.saman.tutorial.shop.model
 
+import com.saman.tutorial.shop.utils.CurrencyUtils.Companion.convertToMoneyFormat
 import java.math.BigDecimal
-import java.text.NumberFormat
 
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
@@ -16,7 +16,7 @@ class Pack : AbstractModel<Int?>, Knapsack {
 
     var price: BigDecimal
 
-    var goods: Goods
+    var goods: Goods?
 
     private constructor(builder: Builder) : super(builder) {
         this.qty = builder.qty
@@ -33,13 +33,17 @@ class Pack : AbstractModel<Int?>, Knapsack {
     }
 
     override fun toString(): String {
-        return String.format("%d @ %s", this.qty, NumberFormat.getCurrencyInstance().format(this.price))
+        return String.format("%d @ %s", this.qty, convertToMoneyFormat(this.price))
     }
 
-    class Builder(val goods: Goods) : AbstractBuilder<Int?, Pack>() {
+
+    class Builder() : AbstractBuilder<Int?, Pack>() {
         var qty: Int = 0
             private set
         var price: BigDecimal = BigDecimal.ZERO
+            private set
+
+        var goods: Goods? = null
             private set
 
         fun qty(qty: Int): Builder {
@@ -49,6 +53,11 @@ class Pack : AbstractModel<Int?>, Knapsack {
 
         fun price(price: BigDecimal): Builder {
             this.price = price
+            return this
+        }
+
+        fun goods(goods: Goods): Builder {
+            this.goods = goods
             return this
         }
 

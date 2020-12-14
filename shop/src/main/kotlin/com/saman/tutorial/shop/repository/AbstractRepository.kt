@@ -3,7 +3,6 @@ package com.saman.tutorial.shop.repository
 import com.saman.tutorial.shop.model.AbstractModel
 import com.saman.tutorial.shop.storage.BeanFactory
 import com.saman.tutorial.shop.storage.Storage
-import com.saman.tutorial.shop.storage.StorageProvider
 import com.saman.tutorial.shop.storage.StorageProvider.STORAGE_BEAN
 import java.util.*
 import java.util.Optional.ofNullable

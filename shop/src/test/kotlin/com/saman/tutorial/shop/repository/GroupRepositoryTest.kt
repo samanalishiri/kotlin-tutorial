@@ -4,12 +4,15 @@ import com.saman.tutorial.shop.AbstractTest
 import com.saman.tutorial.shop.model.Group
 import org.junit.Assert.*
 import org.junit.Before
+import org.junit.FixMethodOrder
 import org.junit.Test
+import org.junit.runners.MethodSorters
 import java.util.*
 
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class GroupRepositoryTest : AbstractTest() {
 
     companion object {
@@ -26,9 +29,6 @@ class GroupRepositoryTest : AbstractTest() {
     @Test
     fun test001_save_GivenGroup_WhenSaveNewGroup_ThenReturnIdentity() {
         val group: Group = Group.Builder().name("Furniture").build()
-        assertNull(group.id)
-        assertEquals(0, group.version)
-        assertEquals("Furniture", group.name)
 
         val identity: Optional<Int?> = repository.save(group)
         assertTrue(identity.isPresent)

@@ -1,7 +1,6 @@
 package com.saman.tutorial.shop.model
 
 import java.math.BigDecimal
-import java.util.*
 
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
@@ -18,9 +17,9 @@ class Goods : AbstractModel<Int?> {
 
     var price: BigDecimal
 
-    var group: Group? = null
+    var group: Group
 
-    var packs: Array<Pack?>
+    var packs: MutableList<Pack?>
 
     private constructor(builder: Builder) : super(builder) {
         this.name = builder.name
@@ -32,9 +31,9 @@ class Goods : AbstractModel<Int?> {
 
     override fun toString(): String {
         return StringBuilder()
-                .append(String.format("$%1s ", name))
-                .append(String.format("$%1s ", code))
-                .append(packs.contentToString())
+                .append(String.format("%1s ", name))
+                .append(String.format("%1s ", code))
+                .append(packs.joinToString(prefix = "[", postfix = "]"))
                 .toString();
     }
 
@@ -49,10 +48,10 @@ class Goods : AbstractModel<Int?> {
         var price: BigDecimal = BigDecimal.ZERO
             private set
 
-        var group: Group? = null
+        var group: Group = Group.Builder().build()
             private set
 
-        var packs: Array<Pack?> = arrayOfNulls(0)
+        var packs: MutableList<Pack?> = mutableListOf()
 
         fun name(name: String): Builder {
             this.name = name
@@ -74,8 +73,13 @@ class Goods : AbstractModel<Int?> {
             return this
         }
 
-        fun packs(packs: Array<Pack?>): Builder {
+        fun packs(packs: MutableList<Pack?>): Builder {
             this.packs = packs
+            return this
+        }
+
+        fun packs(vararg pack: Pack): Builder {
+            this.packs.addAll(pack)
             return this
         }
 
@@ -84,7 +88,8 @@ class Goods : AbstractModel<Int?> {
             this.name = m.name
             this.code = m.code
             this.price = m.price
-            this.group = m.group
+            this.group = Group.Builder().from(m.group).build()
+            this.packs.addAll(0, m.packs)
             return this
         }
 
