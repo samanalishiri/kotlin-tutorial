@@ -16,12 +16,12 @@ class Pack : AbstractModel<Int?>, Knapsack {
 
     var price: BigDecimal
 
-    var goods: Goods?
+    var product: Product?
 
     private constructor(builder: Builder) : super(builder) {
         this.qty = builder.qty
         this.price = builder.price
-        this.goods = builder.goods
+        this.product = builder.product
     }
 
     override fun getWeight(): Int {
@@ -43,7 +43,7 @@ class Pack : AbstractModel<Int?>, Knapsack {
         var price: BigDecimal = BigDecimal.ZERO
             private set
 
-        var goods: Goods? = null
+        var product: Product? = null
             private set
 
         fun qty(qty: Int): Builder {
@@ -56,8 +56,8 @@ class Pack : AbstractModel<Int?>, Knapsack {
             return this
         }
 
-        fun goods(goods: Goods): Builder {
-            this.goods = goods
+        fun goods(product: Product): Builder {
+            this.product = product
             return this
         }
 

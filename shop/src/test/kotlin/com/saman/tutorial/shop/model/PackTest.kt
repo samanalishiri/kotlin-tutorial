@@ -9,7 +9,7 @@ class PackTest {
     @Test
     fun test001_GivenName_WhenBuildNewPack_ThenReturnPack() {
         val pack: Pack = Pack.Builder()
-                .goods(Goods.Builder().build())
+                .goods(Product.Builder().build())
                 .qty(2)
                 .price(BigDecimal.valueOf(40))
                 .build()
@@ -19,7 +19,7 @@ class PackTest {
         assertEquals(0, pack.version)
         assertEquals(2, pack.qty)
         assertEquals(BigDecimal.valueOf(40), pack.price)
-        assertNotNull(pack.goods)
+        assertNotNull(pack.product)
     }
 
 }

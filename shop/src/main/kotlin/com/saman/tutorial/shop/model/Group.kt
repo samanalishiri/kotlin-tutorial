@@ -11,7 +11,7 @@ class Group : AbstractModel<Int?> {
 
     val name: String
 
-    val goods: MutableList<Goods>
+    val goods: MutableList<Product>
 
     private constructor(builder: Builder) : super(builder) {
         this.name = builder.name
@@ -27,7 +27,7 @@ class Group : AbstractModel<Int?> {
         var name: String = ""
             private set
 
-        var goods: MutableList<Goods> = mutableListOf()
+        var goods: MutableList<Product> = mutableListOf()
             private set
 
         fun name(name: String): Builder {
@@ -35,13 +35,13 @@ class Group : AbstractModel<Int?> {
             return this
         }
 
-        fun goods(goods: MutableList<Goods>): Builder {
+        fun goods(goods: MutableList<Product>): Builder {
             this.goods = goods
             return this
         }
 
-        fun goods(goods: Goods): Builder {
-            this.goods.add(goods)
+        fun goods(product: Product): Builder {
+            this.goods.add(product)
             return this
         }
 

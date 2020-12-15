@@ -5,7 +5,7 @@ import java.math.BigDecimal
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
-class Goods : AbstractModel<Int?> {
+class Product : AbstractModel<Int?> {
 
     companion object {
         const val MAP_NAME: String = "GOODS"
@@ -37,7 +37,7 @@ class Goods : AbstractModel<Int?> {
                 .toString();
     }
 
-    class Builder : AbstractBuilder<Int?, Goods>() {
+    class Builder : AbstractBuilder<Int?, Product>() {
 
         var name: String = ""
             private set
@@ -83,7 +83,7 @@ class Goods : AbstractModel<Int?> {
             return this
         }
 
-        override fun from(m: Goods): Builder {
+        override fun from(m: Product): Builder {
             super.from(m)
             this.name = m.name
             this.code = m.code
@@ -93,6 +93,6 @@ class Goods : AbstractModel<Int?> {
             return this
         }
 
-        override fun build() = Goods(this)
+        override fun build() = Product(this)
     }
 }

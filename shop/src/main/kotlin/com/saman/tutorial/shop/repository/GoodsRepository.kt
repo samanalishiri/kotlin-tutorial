@@ -1,31 +1,31 @@
 package com.saman.tutorial.shop.repository
 
-import com.saman.tutorial.shop.model.Goods
+import com.saman.tutorial.shop.model.Product
 import com.saman.tutorial.shop.model.KeySequences
 import java.util.stream.Collectors
 
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
-object GoodsRepository : AbstractRepository<Int?, Goods, Goods.Builder>() {
+object GoodsRepository : AbstractRepository<Int?, Product, Product.Builder>() {
 
 
     override fun getMapName(): String {
-        return Goods.MAP_NAME
+        return Product.MAP_NAME
     }
 
-    override fun getBuilder(): Goods.Builder {
-        return Goods.Builder()
+    override fun getBuilder(): Product.Builder {
+        return Product.Builder()
     }
 
     override fun nextId(): Int {
         return KeySequences.GOODS_SEQUENCE.getAndIncrement()
     }
 
-    override fun completeRelationReferences(model: Goods) {
+    override fun completeRelationReferences(model: Product) {
         model.packs = model.packs.stream()
                 .map {
-                    it!!.goods = model
+                    it!!.product = model
                     PackRepository.save(it)
                     it
                 }

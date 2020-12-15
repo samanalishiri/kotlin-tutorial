@@ -2,7 +2,7 @@ package com.saman.tutorial.shop.repository
 
 import com.saman.tutorial.shop.AbstractTest
 import com.saman.tutorial.shop.model.AbstractModel
-import com.saman.tutorial.shop.model.Goods
+import com.saman.tutorial.shop.model.Product
 import com.saman.tutorial.shop.model.Group
 import com.saman.tutorial.shop.model.Pack
 import org.junit.Assert.*
@@ -17,7 +17,7 @@ import java.util.*
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class GoodsRepositoryTest : AbstractTest() {
+class ProductRepositoryTest : AbstractTest() {
 
     companion object {
         val TEST_DATA: MutableMap<String, AbstractModel<Int?>> = mutableMapOf()
@@ -47,7 +47,7 @@ class GoodsRepositoryTest : AbstractTest() {
     fun test001_save_GivenNewGoods_WhenSave_ThenReturnId() {
         val group: Group = TEST_DATA["furniture"] as Group
 
-        val goods: Goods = Goods.Builder()
+        val product: Product = Product.Builder()
                 .name("Chair")
                 .code("001")
                 .price(BigDecimal.valueOf(2050, 2))
@@ -58,18 +58,18 @@ class GoodsRepositoryTest : AbstractTest() {
                         .build())
                 .build()
 
-        val identity: Optional<Int?> = goodsRepository.save(goods)
+        val identity: Optional<Int?> = goodsRepository.save(product)
         assertTrue(identity.isPresent)
         assertNotNull(identity.get())
-        TEST_DATA["chair"] = goods
+        TEST_DATA["chair"] = product
     }
 
     @Test
     fun test002_findById_GivenIdAsParam_WhenFindById_ThenReturnGoods() {
         assertNotNull(TEST_DATA["chair"])
-        val testModel: Goods = TEST_DATA["chair"] as Goods
+        val testModel: Product = TEST_DATA["chair"] as Product
 
-        val model: Optional<Goods> = goodsRepository.findById(testModel.id)
+        val model: Optional<Product> = goodsRepository.findById(testModel.id)
         assertTrue(model.isPresent)
         assertEquals(testModel.id, model.get().id)
         assertEquals(testModel.name, model.get().name)
@@ -92,16 +92,16 @@ class GoodsRepositoryTest : AbstractTest() {
     @Test
     fun test003_update_GivenChangedData_WhenUpdate_ThenApplyNewChanges() {
         assertNotNull(TEST_DATA["chair"])
-        val testModel: Goods = TEST_DATA["chair"] as Goods
+        val testModel: Product = TEST_DATA["chair"] as Product
         val id = testModel.id
         assertNotNull(id)
 
-        val preUpdateModel: Optional<Goods> = goodsRepository.findById(id)
+        val preUpdateModel: Optional<Product> = goodsRepository.findById(id)
         assertTrue(preUpdateModel.isPresent)
-        val model: Goods = Goods.Builder().from(preUpdateModel.get()).name("Chair_Updated").build()
+        val model: Product = Product.Builder().from(preUpdateModel.get()).name("Chair_Updated").build()
         goodsRepository.update(id, model)
 
-        val afterUpdateModel: Optional<Goods> = goodsRepository.findById(id)
+        val afterUpdateModel: Optional<Product> = goodsRepository.findById(id)
         assertTrue(afterUpdateModel.isPresent)
         assertEquals(testModel.id, afterUpdateModel.get().id)
         assertEquals(model.name, afterUpdateModel.get().name)
@@ -113,12 +113,12 @@ class GoodsRepositoryTest : AbstractTest() {
     @Test
     fun test004_deleteById_GivenIdAsParam_WhenDeleteById_ThenDeleteFromStorage() {
         assertNotNull(TEST_DATA["chair"])
-        val testModel: Goods = TEST_DATA["chair"] as Goods
+        val testModel: Product = TEST_DATA["chair"] as Product
         val id = testModel.id
         assertNotNull(id)
 
         goodsRepository.deleteById(id)
-        val model: Optional<Goods> = goodsRepository.findById(id)
+        val model: Optional<Product> = goodsRepository.findById(id)
         assertFalse(model.isPresent)
     }
 }

@@ -9,22 +9,22 @@ import java.math.BigDecimal
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
-class GoodsTest {
+class ProductTest {
     @Test
     fun test001_GivenParams_WhenBuildNewGoods_ThenReturnGoods() {
-        val goods: Goods = Goods.Builder()
+        val product: Product = Product.Builder()
                 .name("Chair")
                 .code("001")
                 .price(BigDecimal.valueOf(2050, 2))
                 .group(Group.Builder().build())
                 .build()
 
-        assertNotNull(goods)
-        Assert.assertNull(goods.id)
-        assertEquals(0, goods.version)
-        assertEquals("Chair", goods.name)
-        assertEquals("001", goods.code)
-        assertEquals(BigDecimal.valueOf(2050, 2), goods.price)
-        assertNotNull(goods.group)
+        assertNotNull(product)
+        Assert.assertNull(product.id)
+        assertEquals(0, product.version)
+        assertEquals("Chair", product.name)
+        assertEquals("001", product.code)
+        assertEquals(BigDecimal.valueOf(2050, 2), product.price)
+        assertNotNull(product.group)
     }
 }
