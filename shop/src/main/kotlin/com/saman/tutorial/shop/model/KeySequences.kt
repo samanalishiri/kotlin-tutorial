@@ -14,5 +14,9 @@ interface KeySequences {
 
         val PACK_SEQUENCE: AtomicInteger = AtomicInteger(1);
 
+        val ORDER_SEQUENCE: AtomicInteger = AtomicInteger(1);
+
+        val ORDER_ITEM_SEQUENCE: AtomicInteger = AtomicInteger(1);
+
     }
 }

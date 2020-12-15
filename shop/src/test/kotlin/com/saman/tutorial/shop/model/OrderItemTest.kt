@@ -10,7 +10,7 @@ class OrderItemTest {
 
     @Test
     fun test001_GivenName_WhenBuildNewOrderItem_ThenReturnOrderItem() {
-        val orderItem: OrderItem = OrderItem.Builder(Product.Builder(Group.Builder().build()).build())
+        val orderItem = OrderItem.Builder(Order.Builder().build(), Product.Builder(Group.Builder().build()).build())
                 .qty(2)
                 .build()
 

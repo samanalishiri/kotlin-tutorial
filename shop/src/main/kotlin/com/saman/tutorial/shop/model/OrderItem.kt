@@ -13,16 +13,20 @@ class OrderItem : AbstractModel<Int?> {
 
     var product: Product
 
+    var order: Order
+
     private constructor(builder: Builder) : super(builder) {
         this.qty = builder.qty
         this.product = builder.product
+        this.order = builder.order
+        this.order.items.add(this)
     }
 
     override fun toString(): String {
         return String.format("%d @ %s", this.qty, this.product.name)
     }
 
-    class Builder(val product: Product) : AbstractBuilder<Int?, OrderItem>() {
+    class Builder(val order: Order, val product: Product) : AbstractBuilder<Int?, OrderItem>() {
         var qty: Int = 0
             private set
 
