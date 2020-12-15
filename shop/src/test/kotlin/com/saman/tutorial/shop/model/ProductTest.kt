@@ -12,11 +12,10 @@ import java.math.BigDecimal
 class ProductTest {
     @Test
     fun test001_GivenParams_WhenBuildNewProduct_ThenReturnProduct() {
-        val product: Product = Product.Builder()
+        val product: Product = Product.Builder(Group.Builder().build())
                 .name("Chair")
                 .code("001")
                 .price(BigDecimal.valueOf(2050, 2))
-                .group(Group.Builder().build())
                 .build()
 
         assertNotNull(product)

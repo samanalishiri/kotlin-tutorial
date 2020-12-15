@@ -2,9 +2,9 @@ package com.saman.tutorial.shop.repository
 
 import com.saman.tutorial.shop.AbstractTest
 import com.saman.tutorial.shop.model.AbstractModel
-import com.saman.tutorial.shop.model.Product
 import com.saman.tutorial.shop.model.Group
 import com.saman.tutorial.shop.model.Pack
+import com.saman.tutorial.shop.model.Product
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.FixMethodOrder
@@ -46,16 +46,17 @@ class ProductRepositoryTest : AbstractTest() {
     @Test
     fun test001_save_GivenNewProduct_WhenSave_ThenReturnId() {
         val group: Group = TEST_DATA["furniture"] as Group
+        assertNotNull(group)
 
-        val product: Product = Product.Builder()
+        val product: Product = Product.Builder(group)
                 .name("Chair")
                 .code("001")
                 .price(BigDecimal.valueOf(2050, 2))
-                .group(group)
-                .packs(Pack.Builder()
-                        .qty(2)
-                        .price(BigDecimal.valueOf(40))
-                        .build())
+                .build()
+
+        Pack.Builder(product)
+                .qty(2)
+                .price(BigDecimal.valueOf(40))
                 .build()
 
         val identity: Optional<Int?> = productRepository.save(product)
@@ -96,9 +97,12 @@ class ProductRepositoryTest : AbstractTest() {
         val id = testModel.id
         assertNotNull(id)
 
+        assertNotNull(TEST_DATA["furniture"])
+        val group: Group = TEST_DATA["furniture"] as Group
+
         val preUpdateModel: Optional<Product> = productRepository.findById(id)
         assertTrue(preUpdateModel.isPresent)
-        val model: Product = Product.Builder().from(preUpdateModel.get()).name("Chair_Updated").build()
+        val model: Product = Product.Builder(group).from(preUpdateModel.get()).name("Chair_Updated").build()
         productRepository.update(id, model)
 
         val afterUpdateModel: Optional<Product> = productRepository.findById(id)

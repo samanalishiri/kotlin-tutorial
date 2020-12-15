@@ -14,8 +14,8 @@ object ProductRepository : AbstractRepository<Int?, Product, Product.Builder>() 
         return Product.MAP_NAME
     }
 
-    override fun getBuilder(): Product.Builder {
-        return Product.Builder()
+    override fun getBuilder(product: Product): Product.Builder {
+        return Product.Builder(product.group)
     }
 
     override fun nextId(): Int {
@@ -25,12 +25,9 @@ object ProductRepository : AbstractRepository<Int?, Product, Product.Builder>() 
     override fun completeRelationReferences(model: Product) {
         model.packs = model.packs.stream()
                 .map {
-                    it!!.product = model
                     PackRepository.save(it)
                     it
                 }
                 .collect(Collectors.toList())
-
-        model.group.products.add(model)
     }
 }

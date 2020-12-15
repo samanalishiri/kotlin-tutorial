@@ -18,7 +18,7 @@ abstract class AbstractRepository<I, M : AbstractModel<I>, B : AbstractModel.Abs
 
     abstract fun getMapName(): String
 
-    abstract fun getBuilder(): B
+    abstract fun getBuilder(m: M): B
 
     abstract fun nextId(): I
 
@@ -39,7 +39,7 @@ abstract class AbstractRepository<I, M : AbstractModel<I>, B : AbstractModel.Abs
     }
 
     override fun update(id: I, m: M) {
-        storage.update(getMapName(), id, getBuilder().from(m).version().build())
+        storage.update(getMapName(), id, getBuilder(m).from(m).version().build())
     }
 
     override fun deleteById(id: I) {

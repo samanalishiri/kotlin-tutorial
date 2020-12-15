@@ -11,7 +11,7 @@ object GroupRepository : AbstractRepository<Int?, Group, Group.Builder>() {
         return Group.MAP_NAME
     }
 
-    override fun getBuilder(): Group.Builder {
+    override fun getBuilder(group: Group): Group.Builder {
         return Group.Builder()
     }
 

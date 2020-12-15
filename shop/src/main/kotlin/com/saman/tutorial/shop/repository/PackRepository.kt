@@ -11,8 +11,8 @@ object PackRepository : AbstractRepository<Int?, Pack, Pack.Builder>() {
         return Pack.MAP_NAME
     }
 
-    override fun getBuilder(): Pack.Builder {
-        return Pack.Builder()
+    override fun getBuilder(pack: Pack): Pack.Builder {
+        return Pack.Builder(pack.product)
     }
 
     override fun nextId(): Int {

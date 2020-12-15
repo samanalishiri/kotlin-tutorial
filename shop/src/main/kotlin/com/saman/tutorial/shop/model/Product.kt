@@ -19,13 +19,14 @@ class Product : AbstractModel<Int?> {
 
     var group: Group
 
-    var packs: MutableList<Pack?>
+    var packs: MutableList<Pack>
 
     private constructor(builder: Builder) : super(builder) {
         this.name = builder.name
         this.code = builder.code
         this.price = builder.price
         this.group = builder.group
+        this.group.products.add(this)
         this.packs = builder.packs
     }
 
@@ -37,7 +38,7 @@ class Product : AbstractModel<Int?> {
                 .toString();
     }
 
-    class Builder : AbstractBuilder<Int?, Product>() {
+    class Builder(val group: Group) : AbstractBuilder<Int?, Product>() {
 
         var name: String = ""
             private set
@@ -48,10 +49,7 @@ class Product : AbstractModel<Int?> {
         var price: BigDecimal = BigDecimal.ZERO
             private set
 
-        var group: Group = Group.Builder().build()
-            private set
-
-        var packs: MutableList<Pack?> = mutableListOf()
+        var packs: MutableList<Pack> = mutableListOf()
 
         fun name(name: String): Builder {
             this.name = name
@@ -68,12 +66,7 @@ class Product : AbstractModel<Int?> {
             return this
         }
 
-        fun group(group: Group): Builder {
-            this.group = group
-            return this
-        }
-
-        fun packs(packs: MutableList<Pack?>): Builder {
+        fun packs(packs: MutableList<Pack>): Builder {
             this.packs = packs
             return this
         }
@@ -88,7 +81,6 @@ class Product : AbstractModel<Int?> {
             this.name = m.name
             this.code = m.code
             this.price = m.price
-            this.group = Group.Builder().from(m.group).build()
             this.packs.addAll(0, m.packs)
             return this
         }

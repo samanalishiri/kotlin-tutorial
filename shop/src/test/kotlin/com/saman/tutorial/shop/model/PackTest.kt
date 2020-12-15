@@ -8,8 +8,7 @@ class PackTest {
 
     @Test
     fun test001_GivenName_WhenBuildNewPack_ThenReturnPack() {
-        val pack: Pack = Pack.Builder()
-                .product(Product.Builder().build())
+        val pack: Pack = Pack.Builder(Product.Builder(Group.Builder().build()).build())
                 .qty(2)
                 .price(BigDecimal.valueOf(40))
                 .build()
