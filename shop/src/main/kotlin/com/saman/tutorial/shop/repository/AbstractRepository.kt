@@ -24,8 +24,14 @@ abstract class AbstractRepository<I, M : AbstractModel<I>, B : AbstractModel.Abs
 
     override fun save(m: M): Optional<I> {
         val id = nextId()
-        storage.push(getMapName(), id, getBuilder().from(m).id(id).build())
+        m.id = id
+        completeRelationReferences(m)
+        storage.push(getMapName(), id, m)
         return ofNullable(id)
+    }
+
+    open protected fun completeRelationReferences(model: M) {
+
     }
 
     override fun findById(id: I): Optional<M> {

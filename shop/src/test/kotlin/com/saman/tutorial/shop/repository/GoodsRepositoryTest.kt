@@ -1,6 +1,7 @@
 package com.saman.tutorial.shop.repository
 
 import com.saman.tutorial.shop.AbstractTest
+import com.saman.tutorial.shop.model.AbstractModel
 import com.saman.tutorial.shop.model.Goods
 import com.saman.tutorial.shop.model.Group
 import com.saman.tutorial.shop.model.Pack
@@ -19,61 +20,55 @@ import java.util.*
 class GoodsRepositoryTest : AbstractTest() {
 
     companion object {
-        val TEST_DATA: MutableMap<String, Goods> = mutableMapOf()
+        val TEST_DATA: MutableMap<String, AbstractModel<Int?>> = mutableMapOf()
+
     }
 
-    private val goodsRepository = GoodsRepository
-
-    private val groupRepository = GroupRepository
-
-    private val packRepository = PackRepository
-
-    @Before
-    fun beforeTest() {
-        assertNotNull(goodsRepository)
-        assertNotNull(groupRepository)
-        assertNotNull(packRepository)
-    }
-
-    @Test
-    fun test001_save_GivenNewGoods_WhenSave_ThenReturnId() {
-        val groupId: Optional<Int?> = groupRepository.save(Group.Builder()
+    init {
+        val groupId: Optional<Int?> = GroupRepository.save(Group.Builder()
                 .name("Furniture")
                 .build())
         assertTrue(groupId.isPresent)
-        val group: Optional<Group> = groupRepository.findById(groupId.get())
+        val group: Optional<Group> = GroupRepository.findById(groupId.get())
         assertTrue(group.isPresent)
         assertEquals("Furniture", group.get().name)
         assertEquals(0, group.get().version)
 
-        val packId: Optional<Int?> = packRepository.save(Pack.Builder()
-                .qty(2)
-                .price(BigDecimal.valueOf(40))
-                .build())
-        assertTrue(packId.isPresent)
-        val pack: Optional<Pack> = packRepository.findById(packId.get())
-        assertTrue(pack.isPresent)
-        assertEquals(2, pack.get().qty)
-        assertEquals(BigDecimal.valueOf(40), pack.get().price)
+        TEST_DATA["furniture"] = group.get()
+    }
+
+    private val goodsRepository = GoodsRepository
+
+    @Before
+    fun beforeTest() {
+        assertNotNull(goodsRepository)
+    }
+
+    @Test
+    fun test001_save_GivenNewGoods_WhenSave_ThenReturnId() {
+        val group: Group = TEST_DATA["furniture"] as Group
 
         val goods: Goods = Goods.Builder()
                 .name("Chair")
                 .code("001")
                 .price(BigDecimal.valueOf(2050, 2))
-                .group(group.get())
-                .packs(pack.get())
+                .group(group)
+                .packs(Pack.Builder()
+                        .qty(2)
+                        .price(BigDecimal.valueOf(40))
+                        .build())
                 .build()
 
         val identity: Optional<Int?> = goodsRepository.save(goods)
         assertTrue(identity.isPresent)
         assertNotNull(identity.get())
-        TEST_DATA["chair"] = Goods.Builder().from(goods).id(identity.get()).build()
+        TEST_DATA["chair"] = goods
     }
 
     @Test
     fun test002_findById_GivenIdAsParam_WhenFindById_ThenReturnGoods() {
         assertNotNull(TEST_DATA["chair"])
-        val testModel: Goods = TEST_DATA["chair"]!!
+        val testModel: Goods = TEST_DATA["chair"] as Goods
 
         val model: Optional<Goods> = goodsRepository.findById(testModel.id)
         assertTrue(model.isPresent)
@@ -98,7 +93,7 @@ class GoodsRepositoryTest : AbstractTest() {
     @Test
     fun test003_update_GivenChangedData_WhenUpdate_ThenApplyNewChanges() {
         assertNotNull(TEST_DATA["chair"])
-        val testModel: Goods = TEST_DATA["chair"]!!
+        val testModel: Goods = TEST_DATA["chair"] as Goods
         val id = testModel.id
         assertNotNull(id)
 
@@ -119,7 +114,7 @@ class GoodsRepositoryTest : AbstractTest() {
     @Test
     fun test004_deleteById_GivenIdAsParam_WhenDeleteById_ThenDeleteFromStorage() {
         assertNotNull(TEST_DATA["chair"])
-        val testModel: Goods = TEST_DATA["chair"]!!
+        val testModel: Goods = TEST_DATA["chair"] as Goods
         val id = testModel.id
         assertNotNull(id)
 
