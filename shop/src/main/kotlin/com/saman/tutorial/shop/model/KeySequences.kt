@@ -10,7 +10,7 @@ interface KeySequences {
     companion object {
         val GROUP_SEQUENCE: AtomicInteger = AtomicInteger(1);
 
-        val GOODS_SEQUENCE: AtomicInteger = AtomicInteger(1);
+        val PRODUCT_SEQUENCE: AtomicInteger = AtomicInteger(1);
 
         val PACK_SEQUENCE: AtomicInteger = AtomicInteger(1);
 

@@ -7,7 +7,7 @@ import java.util.stream.Collectors
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
-object GoodsRepository : AbstractRepository<Int?, Product, Product.Builder>() {
+object ProductRepository : AbstractRepository<Int?, Product, Product.Builder>() {
 
 
     override fun getMapName(): String {
@@ -19,7 +19,7 @@ object GoodsRepository : AbstractRepository<Int?, Product, Product.Builder>() {
     }
 
     override fun nextId(): Int {
-        return KeySequences.GOODS_SEQUENCE.getAndIncrement()
+        return KeySequences.PRODUCT_SEQUENCE.getAndIncrement()
     }
 
     override fun completeRelationReferences(model: Product) {
@@ -31,6 +31,6 @@ object GoodsRepository : AbstractRepository<Int?, Product, Product.Builder>() {
                 }
                 .collect(Collectors.toList())
 
-        model.group.goods.add(model)
+        model.group.products.add(model)
     }
 }

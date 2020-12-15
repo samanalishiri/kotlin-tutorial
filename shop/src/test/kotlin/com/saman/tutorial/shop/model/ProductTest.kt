@@ -11,7 +11,7 @@ import java.math.BigDecimal
  */
 class ProductTest {
     @Test
-    fun test001_GivenParams_WhenBuildNewGoods_ThenReturnGoods() {
+    fun test001_GivenParams_WhenBuildNewProduct_ThenReturnProduct() {
         val product: Product = Product.Builder()
                 .name("Chair")
                 .code("001")

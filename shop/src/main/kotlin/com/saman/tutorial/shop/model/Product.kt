@@ -8,7 +8,7 @@ import java.math.BigDecimal
 class Product : AbstractModel<Int?> {
 
     companion object {
-        const val MAP_NAME: String = "GOODS"
+        const val MAP_NAME: String = "PRODUCT"
     }
 
     var name: String

@@ -56,7 +56,7 @@ class Pack : AbstractModel<Int?>, Knapsack {
             return this
         }
 
-        fun goods(product: Product): Builder {
+        fun product(product: Product): Builder {
             this.product = product
             return this
         }

@@ -36,15 +36,15 @@ class ProductRepositoryTest : AbstractTest() {
         TEST_DATA["furniture"] = group.get()
     }
 
-    private val goodsRepository = GoodsRepository
+    private val productRepository = ProductRepository
 
     @Before
     fun beforeTest() {
-        assertNotNull(goodsRepository)
+        assertNotNull(productRepository)
     }
 
     @Test
-    fun test001_save_GivenNewGoods_WhenSave_ThenReturnId() {
+    fun test001_save_GivenNewProduct_WhenSave_ThenReturnId() {
         val group: Group = TEST_DATA["furniture"] as Group
 
         val product: Product = Product.Builder()
@@ -58,18 +58,18 @@ class ProductRepositoryTest : AbstractTest() {
                         .build())
                 .build()
 
-        val identity: Optional<Int?> = goodsRepository.save(product)
+        val identity: Optional<Int?> = productRepository.save(product)
         assertTrue(identity.isPresent)
         assertNotNull(identity.get())
         TEST_DATA["chair"] = product
     }
 
     @Test
-    fun test002_findById_GivenIdAsParam_WhenFindById_ThenReturnGoods() {
+    fun test002_findById_GivenIdAsParam_WhenFindById_ThenReturnProduct() {
         assertNotNull(TEST_DATA["chair"])
         val testModel: Product = TEST_DATA["chair"] as Product
 
-        val model: Optional<Product> = goodsRepository.findById(testModel.id)
+        val model: Optional<Product> = productRepository.findById(testModel.id)
         assertTrue(model.isPresent)
         assertEquals(testModel.id, model.get().id)
         assertEquals(testModel.name, model.get().name)
@@ -96,12 +96,12 @@ class ProductRepositoryTest : AbstractTest() {
         val id = testModel.id
         assertNotNull(id)
 
-        val preUpdateModel: Optional<Product> = goodsRepository.findById(id)
+        val preUpdateModel: Optional<Product> = productRepository.findById(id)
         assertTrue(preUpdateModel.isPresent)
         val model: Product = Product.Builder().from(preUpdateModel.get()).name("Chair_Updated").build()
-        goodsRepository.update(id, model)
+        productRepository.update(id, model)
 
-        val afterUpdateModel: Optional<Product> = goodsRepository.findById(id)
+        val afterUpdateModel: Optional<Product> = productRepository.findById(id)
         assertTrue(afterUpdateModel.isPresent)
         assertEquals(testModel.id, afterUpdateModel.get().id)
         assertEquals(model.name, afterUpdateModel.get().name)
@@ -117,8 +117,8 @@ class ProductRepositoryTest : AbstractTest() {
         val id = testModel.id
         assertNotNull(id)
 
-        goodsRepository.deleteById(id)
-        val model: Optional<Product> = goodsRepository.findById(id)
+        productRepository.deleteById(id)
+        val model: Optional<Product> = productRepository.findById(id)
         assertFalse(model.isPresent)
     }
 }
