@@ -9,10 +9,6 @@ import java.util.Optional.ofNullable
 class ApplicationStorage : Storage {
     private val map: MutableMap<String, MutableMap<Any, Any>> = mutableMapOf()
 
-    init {
-        println(ApplicationStorage::class.java.simpleName)
-    }
-
     override fun create(name: String) {
         map.putIfAbsent(name, mutableMapOf())
     }

@@ -9,11 +9,11 @@ class BeanFactory private constructor() {
         private val map: MutableMap<String, Any> = mutableMapOf()
 
         fun register(name: String, bean: Any) {
-            map.put(name, bean)
+            map[name] = bean
         }
 
         fun <T> getBean(name: String): T {
-            return map.get(name) as T
+            return map[name] as T
         }
     }
 

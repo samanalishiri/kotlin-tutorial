@@ -21,7 +21,6 @@ class GoodsRepositoryTest : AbstractTest() {
 
     companion object {
         val TEST_DATA: MutableMap<String, AbstractModel<Int?>> = mutableMapOf()
-
     }
 
     init {

@@ -12,7 +12,6 @@ class GroupTest {
         assertNull(group.id)
         assertEquals(0, group.version)
         assertEquals("Furniture", group.name)
-        assertEquals("Furniture", group.toString())
     }
 
 }
