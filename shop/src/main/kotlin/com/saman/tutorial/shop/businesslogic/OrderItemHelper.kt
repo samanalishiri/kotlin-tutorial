@@ -11,21 +11,12 @@ import java.util.*
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
 class OrderItemHelper {
-    /**
-     * @param item
-     * @return
-     */
+
     fun findMinimalNumberOfPacks(item: OrderItem): List<PackModel> {
         val answers = findAllAnswers(item)
-        return if (answers.isEmpty()) {
-            createDefaultAnswer(item)
-        } else findBestAnswer(answers)
+        return if (answers.isEmpty()) createDefaultAnswer(item) else findBestAnswer(answers)
     }
 
-    /**
-     * @param item
-     * @return
-     */
     private fun findAllAnswers(item: OrderItem): List<List<PackModel>> {
         var packs: List<Pack> = item.product.packs
         packs = packs.sortedByDescending { it.getWeight() }
@@ -49,34 +40,9 @@ class OrderItemHelper {
         return answers
     }
 
-    /**
-     * @param answers
-     * @return
-     */
-    private fun findBestAnswer(answers: List<List<PackModel>>): List<PackModel> {
-        var result = answers[0]
-        for (answer in answers) {
-            if (totalCount(answer) < totalCount(result)
-                && BigDecimalHelper.of(calculateTotalPrice(answer)).isLessThanOrEquals(calculateTotalPrice(result))
-            ) {
-                result = answer
-            }
-        }
-        return result
-    }
+    private fun findBestAnswer(answers: List<List<PackModel>>): List<PackModel> =
+        answers.sortedWith(compareBy({ totalCount(it) }, { calculateTotalPrice(it) })).first()
 
-    /**
-     * @param item
-     * @return
-     */
-    private fun createDefaultAnswer(item: OrderItem): List<PackModel> {
-        return Arrays.asList(
-            PackModel(
-                item.qty, Pack.Builder(item.product)
-                    .qty(1)
-                    .price(item.product.price)
-                    .build()
-            )
-        )
-    }
+    private fun createDefaultAnswer(item: OrderItem): List<PackModel> =
+        listOf(PackModel(item.qty, Pack.Builder(item.product).qty(1).price(item.product.price).build()))
 }

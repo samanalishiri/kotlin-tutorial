@@ -10,6 +10,9 @@ import java.util.*
 class CurrencyUtils private constructor() {
 
     companion object {
-        fun convertToMoneyFormat(num: BigDecimal): String = getCurrencyInstance(Locale.getDefault()).format(num)!!
+        fun convertToMoneyFormat(num: BigDecimal): String {
+            val format = getCurrencyInstance(Locale.US)
+            return format.format(num)
+        }
     }
 }

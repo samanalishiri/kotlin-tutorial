@@ -15,13 +15,13 @@ import java.util.stream.Collectors
  */
 class OrderItemModel(item: OrderItem, packs: List<PackModel>) {
 
-    private val qty: Int = item.qty
+    val qty: Int = item.qty
 
-    private val code: String = item.product.code
+    val code: String = item.product.code
 
-    private val packs: List<PackModel> = packs
+    val packs: List<PackModel> = packs
 
-    private val sum: BigDecimal = PackHelper.calculateTotalPrice(packs)
+    val sum: BigDecimal = PackHelper.calculateTotalPrice(packs)
 
     override fun toString(): String = qty.toString() + " " + code + " " + sum +
             packs.stream().map { it.toString() }.collect(Collectors.toList()).joinToString(separator = "\n\t", prefix = "\n\t")

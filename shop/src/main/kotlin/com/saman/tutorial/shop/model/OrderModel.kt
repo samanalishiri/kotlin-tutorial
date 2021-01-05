@@ -10,9 +10,13 @@ class OrderModel {
 
     private val items: MutableList<OrderItemModel> = mutableListOf()
 
-    fun addItem(item: OrderItemModel) {
-        items.add(item)
+    fun addItem(vararg item: OrderItemModel): OrderModel {
+        items.addAll(item)
+        return this
     }
+
+    fun getItemByCode(code: String): OrderItemModel = items.stream().filter { it.code == code }.findFirst().get()
+
 
     override fun toString(): String = multiLine(items.stream().map(OrderItemModel::toString).collect(toList()))
 }

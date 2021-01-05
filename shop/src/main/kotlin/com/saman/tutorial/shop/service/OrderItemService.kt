@@ -13,8 +13,6 @@ object OrderItemService : AbstractService<Int?, OrderItem, OrderItem.Builder, In
 
     private val helper: OrderItemHelper = OrderItemHelper()
 
-    fun findMinimalNumberOfPacks(item: OrderItem): List<PackModel> {
-        return helper.findMinimalNumberOfPacks(item)
-    }
+    fun findMinimalNumberOfPacks(item: OrderItem): List<PackModel> = helper.findMinimalNumberOfPacks(item)
 
 }
