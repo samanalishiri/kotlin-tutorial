@@ -9,6 +9,8 @@ import java.math.BigDecimal
 class Pack : AbstractModel<Int?>, Knapsack {
 
     companion object {
+        fun createUnitPack(product: Product) = Builder(product).qty(1).price(product.price).build()
+
         const val MAP_NAME: String = "PACK"
     }
 
@@ -61,6 +63,12 @@ class Pack : AbstractModel<Int?>, Knapsack {
             this.qty = m.qty
             this.price = m.price
             return this
+        }
+
+        fun oneProductPackage(): Pack {
+            qty(1)
+            price(product.price)
+            return Pack(this)
         }
 
         override fun build(): Pack = Pack(this)

@@ -1,4 +1,4 @@
-package com.saman.tutorial.kotlin.collection
+package com.saman.tutorial.collection
 
 class NumberArray {
 

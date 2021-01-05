@@ -9,14 +9,14 @@ import java.util.stream.Collectors
 class CollectionUtils private constructor() {
 
     companion object {
-        fun <T, R> mapTo(list: List<T>, mapper: Function<T, R>): List<R> = list.stream()
+        fun <T, R> mapTo(list: List<T>, mapper: Function<T, R>): MutableList<R> = list.stream()
             .map(mapper)
             .collect(Collectors.toList())
 
         inline fun <T, reified R> mapToArray(list: List<T>, mapper: Function<T, R>): Array<R> = mapTo(list, mapper).toTypedArray()
 
-        fun multiLine(list: List<String>): String {
-            return list.joinToString(separator = "\n")
+        fun joinString(list: List<String>, separator: String = "\n", prefix: String = "\n"): String {
+            return list.joinToString(separator = separator, prefix = prefix)
         }
 
     }

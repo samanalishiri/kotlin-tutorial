@@ -1,7 +1,7 @@
 package com.saman.tutorial.shop.domain
 
 import com.saman.tutorial.shop.utils.CollectionUtils.Companion.mapTo
-import com.saman.tutorial.shop.utils.CollectionUtils.Companion.multiLine
+import com.saman.tutorial.shop.utils.CollectionUtils.Companion.joinString
 import java.util.function.Function
 
 /**
@@ -24,7 +24,7 @@ class Order : AbstractModel<Int?> {
     }
 
     override fun toString(): String {
-        return multiLine(mapTo(items, Function { it.toString() }))
+        return joinString(mapTo(items, Function { it.toString() }))
     }
 
     class Builder : AbstractBuilder<Int?, Order>() {

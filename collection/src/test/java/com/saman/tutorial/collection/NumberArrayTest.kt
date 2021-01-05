@@ -1,22 +1,17 @@
-package com.saman.tutorial.kotlin.collection
+package com.saman.tutorial.collection
 
-import com.saman.tutorial.kotlin.collection.NumberArray.Companion.arrayOfInts
-import org.hamcrest.CoreMatchers.`is`
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertThat
+import com.saman.tutorial.collection.NumberArray.Companion.arrayOfInts
+import org.hamcrest.CoreMatchers
+import org.junit.Assert.*
 import org.junit.Test
-import java.util.logging.Logger
 
 class NumberArrayTest {
-
-    val LOG = Logger.getLogger(NumberArrayTest::class.java.simpleName);
-
     @Test
     fun whenCreateEmptyArray_thenReturnArrayWithTenNullObject() {
         val collection = NumberArray()
         assertEquals(10, collection.getSize())
         assertEquals(-1, collection.lastIndex())
-        assertThat(collection.getAll(), `is`(arrayOfInts(10)))
+        assertThat(collection.getAll(), CoreMatchers.`is`(arrayOfInts(10)))
     }
 
     @Test
@@ -26,7 +21,7 @@ class NumberArrayTest {
 
         assertEquals(10, collection.getSize())
         assertEquals(0, collection.lastIndex())
-        assertThat(collection.getAll(), `is`(arrayOfInts(10, 1)))
+        assertThat(collection.getAll(), CoreMatchers.`is`(arrayOfInts(10, 1)))
     }
 
     @Test
@@ -37,8 +32,7 @@ class NumberArrayTest {
 
         assertEquals(20, collection.getSize())
         assertEquals(10, collection.lastIndex())
-        assertThat(collection.getAll(), `is`(arrayOfInts(20, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)))
+        assertThat(collection.getAll(), CoreMatchers.`is`(arrayOfInts(20, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)))
     }
-
 
 }

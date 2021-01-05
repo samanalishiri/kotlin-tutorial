@@ -25,6 +25,7 @@
     </properties>
     <modules>
         <module>shop</module>
+        <module>collection</module>
     </modules>
     <dependencies>
         <dependency>
