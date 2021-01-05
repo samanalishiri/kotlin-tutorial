@@ -1,14 +1,13 @@
 package com.saman.tutorial.shop.repository
 
-import com.saman.tutorial.shop.model.KeySequences
-import com.saman.tutorial.shop.model.Order
-import com.saman.tutorial.shop.model.Product
+import com.saman.tutorial.shop.domain.KeySequences
+import com.saman.tutorial.shop.domain.Order
 import java.util.stream.Collectors
 
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
-object OrderRepository : AbstractRepository<Int?, Order, Order.Builder>() {
+object InmemoryOrderRepository : AbstractRepository<Int?, Order, Order.Builder>() {
     override fun getMapName(): String {
         return Order.MAP_NAME
     }
@@ -23,10 +22,10 @@ object OrderRepository : AbstractRepository<Int?, Order, Order.Builder>() {
 
     override fun completeRelationReferences(model: Order) {
         model.items = model.items.stream()
-                .map {
-                    OrderItemRepository.save(it)
-                    it
-                }
-                .collect(Collectors.toList())
+            .map {
+                InmemoryOrderItemRepository.save(it)
+                it
+            }
+            .collect(Collectors.toList())
     }
 }

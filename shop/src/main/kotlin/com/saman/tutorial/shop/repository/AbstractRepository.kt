@@ -1,6 +1,6 @@
 package com.saman.tutorial.shop.repository
 
-import com.saman.tutorial.shop.model.AbstractModel
+import com.saman.tutorial.shop.domain.AbstractModel
 import com.saman.tutorial.shop.storage.BeanFactory
 import com.saman.tutorial.shop.storage.Storage
 import com.saman.tutorial.shop.storage.StorageProvider.STORAGE_BEAN
@@ -12,7 +12,7 @@ import java.util.stream.Collectors
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
 abstract class AbstractRepository<I, M : AbstractModel<I>, B : AbstractModel.AbstractBuilder<I, M>> :
-        Crud<I, M>, ReadOnly<I, M> {
+    CrudRepository<I, M>, ReadOnlyRepository<I, M> {
 
     private val storage: Storage = BeanFactory.getBean(STORAGE_BEAN)
 
@@ -52,8 +52,8 @@ abstract class AbstractRepository<I, M : AbstractModel<I>, B : AbstractModel.Abs
             return Collections.emptyList()
 
         return map.get().entries
-                .stream()
-                .map { it.value }
-                .collect(Collectors.toList())
+            .stream()
+            .map { it.value }
+            .collect(Collectors.toList())
     }
 }

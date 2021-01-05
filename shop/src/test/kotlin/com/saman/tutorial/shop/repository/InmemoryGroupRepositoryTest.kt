@@ -1,7 +1,7 @@
 package com.saman.tutorial.shop.repository
 
 import com.saman.tutorial.shop.AbstractTest
-import com.saman.tutorial.shop.model.Group
+import com.saman.tutorial.shop.domain.Group
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.FixMethodOrder
@@ -13,13 +13,13 @@ import java.util.*
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class GroupRepositoryTest : AbstractTest() {
+class InmemoryGroupRepositoryTest : AbstractTest() {
 
     companion object {
         val TEST_DATA: MutableMap<String, Group> = mutableMapOf()
     }
 
-    private val repository = GroupRepository
+    private val repository = InmemoryGroupRepository
 
     @Before
     fun beforeTest() {

@@ -1,4 +1,4 @@
-package com.saman.tutorial.shop.model
+package com.saman.tutorial.shop.domain
 
 import org.junit.Assert
 import org.junit.Assert.assertEquals
@@ -13,10 +13,10 @@ class ProductTest {
     @Test
     fun test001_GivenParams_WhenBuildNewProduct_ThenReturnProduct() {
         val product: Product = Product.Builder(Group.Builder().build())
-                .name("Chair")
-                .code("001")
-                .price(BigDecimal.valueOf(2050, 2))
-                .build()
+            .name("Chair")
+            .code("001")
+            .price(BigDecimal.valueOf(2050, 2))
+            .build()
 
         assertNotNull(product)
         Assert.assertNull(product.id)

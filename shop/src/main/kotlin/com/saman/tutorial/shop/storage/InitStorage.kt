@@ -1,8 +1,6 @@
 package com.saman.tutorial.shop.storage
 
-import com.saman.tutorial.shop.model.Product
-import com.saman.tutorial.shop.model.Group
-import com.saman.tutorial.shop.model.Pack
+import com.saman.tutorial.shop.domain.*
 import com.saman.tutorial.shop.storage.StorageProvider.STORAGE_BEAN
 
 /**
@@ -16,5 +14,7 @@ class InitStorage {
         storage.create(Group.MAP_NAME)
         storage.create(Product.MAP_NAME)
         storage.create(Pack.MAP_NAME)
+        storage.create(OrderItem.MAP_NAME)
+        storage.create(Order.MAP_NAME)
     }
 }

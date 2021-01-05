@@ -1,4 +1,8 @@
-package com.saman.tutorial.shop.model
+package com.saman.tutorial.shop.domain
+
+import com.saman.tutorial.shop.utils.CollectionUtils.Companion.mapTo
+import com.saman.tutorial.shop.utils.CollectionUtils.Companion.multiLine
+import java.util.function.Function
 
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
@@ -6,6 +10,10 @@ package com.saman.tutorial.shop.model
 class Order : AbstractModel<Int?> {
 
     companion object {
+        fun buildEmpty(): Order {
+            return Builder().build()
+        }
+
         const val MAP_NAME: String = "ORDER"
     }
 
@@ -13,6 +21,10 @@ class Order : AbstractModel<Int?> {
 
     private constructor(builder: Builder) : super(builder) {
         this.items = builder.item
+    }
+
+    override fun toString(): String {
+        return multiLine(mapTo(items, Function { it.toString() }))
     }
 
     class Builder : AbstractBuilder<Int?, Order>() {
@@ -25,7 +37,7 @@ class Order : AbstractModel<Int?> {
             return this
         }
 
-        fun items(product: OrderItem): Builder {
+        fun item(product: OrderItem): Builder {
             this.item.add(product)
             return this
         }

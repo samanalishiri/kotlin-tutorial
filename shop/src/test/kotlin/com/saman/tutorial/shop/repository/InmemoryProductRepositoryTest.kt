@@ -1,10 +1,10 @@
 package com.saman.tutorial.shop.repository
 
 import com.saman.tutorial.shop.AbstractTest
-import com.saman.tutorial.shop.model.AbstractModel
-import com.saman.tutorial.shop.model.Group
-import com.saman.tutorial.shop.model.Pack
-import com.saman.tutorial.shop.model.Product
+import com.saman.tutorial.shop.domain.AbstractModel
+import com.saman.tutorial.shop.domain.Group
+import com.saman.tutorial.shop.domain.Pack
+import com.saman.tutorial.shop.domain.Product
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.FixMethodOrder
@@ -17,18 +17,20 @@ import java.util.*
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class ProductRepositoryTest : AbstractTest() {
+class InmemoryProductRepositoryTest : AbstractTest() {
 
     companion object {
         val TEST_DATA: MutableMap<String, AbstractModel<Int?>> = mutableMapOf()
     }
 
     init {
-        val groupId: Optional<Int?> = GroupRepository.save(Group.Builder()
+        val groupId: Optional<Int?> = InmemoryGroupRepository.save(
+            Group.Builder()
                 .name("Furniture")
-                .build())
+                .build()
+        )
         assertTrue(groupId.isPresent)
-        val group: Optional<Group> = GroupRepository.findById(groupId.get())
+        val group: Optional<Group> = InmemoryGroupRepository.findById(groupId.get())
         assertTrue(group.isPresent)
         assertEquals("Furniture", group.get().name)
         assertEquals(0, group.get().version)
@@ -36,7 +38,7 @@ class ProductRepositoryTest : AbstractTest() {
         TEST_DATA["furniture"] = group.get()
     }
 
-    private val productRepository = ProductRepository
+    private val productRepository = InmemoryProductRepository
 
     @Before
     fun beforeTest() {
@@ -48,16 +50,16 @@ class ProductRepositoryTest : AbstractTest() {
         val group: Group = TEST_DATA["furniture"] as Group
         assertNotNull(group)
 
-        val product: Product = Product.Builder(group)
-                .name("Chair")
-                .code("001")
-                .price(BigDecimal.valueOf(2050, 2))
-                .build()
+        val product = Product.Builder(group)
+            .name("Chair")
+            .code("001")
+            .price(BigDecimal.valueOf(2050, 2))
+            .build()
 
         Pack.Builder(product)
-                .qty(2)
-                .price(BigDecimal.valueOf(40))
-                .build()
+            .qty(2)
+            .price(BigDecimal.valueOf(40))
+            .build()
 
         val identity: Optional<Int?> = productRepository.save(product)
         assertTrue(identity.isPresent)
@@ -86,8 +88,8 @@ class ProductRepositoryTest : AbstractTest() {
 
         val packs = model.get().packs
         assertEquals(1, packs.size)
-        assertEquals(2, packs.get(0)?.qty)
-        assertEquals(BigDecimal.valueOf(40), packs.get(0)?.price)
+        assertEquals(2, packs.get(0).qty)
+        assertEquals(BigDecimal.valueOf(40), packs.get(0).price)
     }
 
     @Test

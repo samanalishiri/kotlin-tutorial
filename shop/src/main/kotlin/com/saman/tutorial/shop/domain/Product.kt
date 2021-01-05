@@ -1,4 +1,4 @@
-package com.saman.tutorial.shop.model
+package com.saman.tutorial.shop.domain
 
 import java.math.BigDecimal
 
@@ -8,6 +8,10 @@ import java.math.BigDecimal
 class Product : AbstractModel<Int?> {
 
     companion object {
+        fun buildEmpty(): Product {
+            return Builder(Group.Builder().build()).build()
+        }
+
         const val MAP_NAME: String = "PRODUCT"
     }
 
@@ -32,10 +36,10 @@ class Product : AbstractModel<Int?> {
 
     override fun toString(): String {
         return StringBuilder()
-                .append(String.format("%1s ", name))
-                .append(String.format("%1s ", code))
-                .append(packs.joinToString(prefix = "[", postfix = "]"))
-                .toString();
+            .append(String.format("%1s ", name))
+            .append(String.format("%1s ", code))
+            .append(packs.joinToString(prefix = "[", postfix = "]"))
+            .toString();
     }
 
     class Builder(val group: Group) : AbstractBuilder<Int?, Product>() {

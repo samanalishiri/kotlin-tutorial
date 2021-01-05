@@ -1,12 +1,12 @@
 package com.saman.tutorial.shop.repository
 
-import com.saman.tutorial.shop.model.KeySequences
-import com.saman.tutorial.shop.model.Pack
+import com.saman.tutorial.shop.domain.KeySequences
+import com.saman.tutorial.shop.domain.Pack
 
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
-object PackRepository : AbstractRepository<Int?, Pack, Pack.Builder>() {
+object InmemoryPackRepository : AbstractRepository<Int?, Pack, Pack.Builder>() {
     override fun getMapName(): String {
         return Pack.MAP_NAME
     }

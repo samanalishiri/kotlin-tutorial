@@ -1,4 +1,4 @@
-package com.saman.tutorial.shop.model
+package com.saman.tutorial.shop.domain
 
 import java.math.BigDecimal
 

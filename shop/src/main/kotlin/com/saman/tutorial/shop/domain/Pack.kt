@@ -1,4 +1,4 @@
-package com.saman.tutorial.shop.model
+package com.saman.tutorial.shop.domain
 
 import com.saman.tutorial.shop.utils.CurrencyUtils.Companion.convertToMoneyFormat
 import java.math.BigDecimal
@@ -25,25 +25,26 @@ class Pack : AbstractModel<Int?>, Knapsack {
         this.product.packs.add(this)
     }
 
-    override fun getWeight(): Int {
-        return qty
-    }
+    override fun getWeight(): Int = qty
 
-    override fun getValue(): BigDecimal {
-        return price
-    }
+    override fun getValue(): BigDecimal = price
 
-    override fun toString(): String {
-        return String.format("%d @ %s", this.qty, convertToMoneyFormat(this.price))
-    }
+    override fun toString(): String = String.format("%d @ %s", this.qty, convertToMoneyFormat(this.price))
 
+    class Builder : AbstractBuilder<Int?, Pack> {
 
-    class Builder(val product: Product) : AbstractBuilder<Int?, Pack>() {
         var qty: Int = 0
             private set
 
         var price: BigDecimal = BigDecimal.ZERO
             private set
+
+        var product: Product
+            private set
+
+        constructor(product: Product) {
+            this.product = product
+        }
 
         fun qty(qty: Int): Builder {
             this.qty = qty
@@ -62,8 +63,7 @@ class Pack : AbstractModel<Int?>, Knapsack {
             return this
         }
 
-        override fun build(): Pack {
-            return Pack(this)
-        }
+        override fun build(): Pack = Pack(this)
     }
+
 }

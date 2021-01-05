@@ -1,4 +1,4 @@
-package com.saman.tutorial.shop.model
+package com.saman.tutorial.shop.domain
 
 import org.junit.Assert.*
 import org.junit.Test
@@ -9,9 +9,9 @@ class PackTest {
     @Test
     fun test001_GivenName_WhenBuildNewPack_ThenReturnPack() {
         val pack: Pack = Pack.Builder(Product.Builder(Group.Builder().build()).build())
-                .qty(2)
-                .price(BigDecimal.valueOf(40))
-                .build()
+            .qty(2)
+            .price(BigDecimal.valueOf(40))
+            .build()
 
         assertNotNull(pack)
         assertNull(pack.id)
