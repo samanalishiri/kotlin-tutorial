@@ -12,7 +12,8 @@ import java.math.BigDecimal
 class ProductTest {
     @Test
     fun test001_GivenParams_WhenBuildNewProduct_ThenReturnProduct() {
-        val product: Product = Product.Builder(Group.Builder().build())
+        val group = Group.Builder().build()
+        val product: Product = Product.Builder(group)
             .name("Chair")
             .code("001")
             .price(BigDecimal.valueOf(2050, 2))

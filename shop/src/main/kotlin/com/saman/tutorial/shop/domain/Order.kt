@@ -10,7 +10,7 @@ import java.util.function.Function
 class Order : AbstractModel<Int?> {
 
     companion object {
-        fun buildEmpty(): Order {
+        fun creatEmpty(): Order {
             return Builder().build()
         }
 

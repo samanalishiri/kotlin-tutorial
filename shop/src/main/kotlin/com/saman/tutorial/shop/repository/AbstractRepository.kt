@@ -30,7 +30,7 @@ abstract class AbstractRepository<I, M : AbstractModel<I>, B : AbstractModel.Abs
         return ofNullable(id)
     }
 
-    open protected fun completeRelationReferences(model: M) {
+    protected open fun completeRelationReferences(model: M) {
 
     }
 

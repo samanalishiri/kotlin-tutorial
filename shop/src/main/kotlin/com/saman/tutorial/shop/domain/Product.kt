@@ -8,7 +8,7 @@ import java.math.BigDecimal
 class Product : AbstractModel<Int?> {
 
     companion object {
-        fun buildEmpty(): Product {
+        fun createEmpty(): Product {
             return Builder(Group.Builder().build()).build()
         }
 

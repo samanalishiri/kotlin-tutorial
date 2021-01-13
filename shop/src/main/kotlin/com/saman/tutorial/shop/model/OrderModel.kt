@@ -1,7 +1,8 @@
 package com.saman.tutorial.shop.model
 
 import com.saman.tutorial.shop.utils.CollectionUtils.Companion.joinString
-import java.util.stream.Collectors.toList
+import com.saman.tutorial.shop.utils.CollectionUtils.Companion.mapTo
+import java.util.function.Function
 
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
@@ -15,5 +16,5 @@ class OrderModel(private val items: MutableList<OrderItemModel> = mutableListOf(
 
     fun getItemByCode(code: String) = items.stream().filter { it.code == code }.findFirst().get()
 
-    override fun toString() = joinString(items.stream().map(OrderItemModel::toString).collect(toList()))
+    override fun toString() = joinString(mapTo(items, Function { it.toString() }))
 }

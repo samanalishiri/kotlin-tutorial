@@ -2,12 +2,22 @@ package com.saman.tutorial.shop.service
 
 import com.saman.tutorial.shop.domain.*
 import com.saman.tutorial.shop.model.OrderModel
+import com.saman.tutorial.shop.model.PackModel
+import com.saman.tutorial.shop.utils.CollectionUtils.Companion.joinString
+import com.saman.tutorial.shop.utils.CollectionUtils.Companion.mapTo
 import org.junit.Test
 
 import org.junit.Assert.*
 import org.junit.Before
+import org.junit.FixMethodOrder
+import org.junit.runners.MethodSorters
 import java.math.BigDecimal
+import java.util.function.Function
 
+/**
+ * @author Saman Alishiri, samanalishiri@gmail.com
+ */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class OrderServiceTest {
 
     private val service: OrderService = OrderService
@@ -56,7 +66,7 @@ class OrderServiceTest {
     }
 
     @Test
-    fun calculate() {
+    fun test001_GivenOrder_WhenCalculate_ThenReturnSomePack() {
         val order: Order = Order.Builder().build()
         OrderItem.Builder(order, TEST_DATA["vegemite"] as Product).qty(10).build()
         OrderItem.Builder(order, TEST_DATA["blueberryMuffin"] as Product).qty(14).build()
@@ -95,6 +105,25 @@ class OrderServiceTest {
         assertEquals(3, croissant.packs[1].pack.qty)
         assertEquals(BigDecimal.valueOf(5.95), croissant.packs[1].pack.price)
 
-        println("\ninput:\n$order\n\noutput:\n$result")
+        println("\ninput:$order\noutput:$result")
+    }
+
+    @Test
+    fun test002_GivenOrderThatDoNotSupportPrePack_WhenCalculate_ThenReturnUnitPack() {
+        val product = TEST_DATA["vegemite"] as Product
+        val order: Order = Order.Builder().build()
+        OrderItem.Builder(order, product).qty(7).build()
+
+        val result: OrderModel = OrderService.calculate(order)
+        assertNotNull(result)
+        val vegemite = result.getItemByCode("VS5")
+        assertEquals(7, vegemite.qty)
+        assertEquals(BigDecimal.valueOf(16.31), vegemite.sum)
+        assertEquals(1, vegemite.packs.size)
+        assertEquals(7, vegemite.packs[0].count)
+        assertEquals(1, vegemite.packs[0].pack.qty)
+        assertEquals(product.price, vegemite.packs[0].pack.price)
+
+        println("\ninput:$order\noutput:$result")
     }
 }

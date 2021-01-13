@@ -26,31 +26,25 @@ class InmemoryOrderRepositoryTest : AbstractTest() {
         InmemoryGroupRepository.save(group)
         TEST_DATA["furniture"] = group
 
-        var chair: Product = Product.buildEmpty()
-        chair = Product.Builder(group).name("Chair")
+        var chair: Product = Product.Builder(group).name("Chair")
             .code("001")
             .price(BigDecimal.valueOf(578, 1))
-            .packs(
-                Pack.Builder(chair)
-                    .qty(4)
-                    .price(BigDecimal.valueOf(220))
-                    .build()
-            )
+            .build()
+        Pack.Builder(chair)
+            .qty(4)
+            .price(BigDecimal.valueOf(220))
             .build()
         InmemoryProductRepository.save(chair)
         TEST_DATA["chair"] = chair
 
-        var table: Product = Product.buildEmpty()
-        table = Product.Builder(group)
+        var table: Product = Product.Builder(group)
             .name("Table")
             .code("002")
             .price(BigDecimal.valueOf(14999, 2))
-            .packs(
-                Pack.Builder(table)
-                    .qty(2)
-                    .price(BigDecimal.valueOf(290))
-                    .build()
-            )
+            .build()
+        Pack.Builder(table)
+            .qty(2)
+            .price(BigDecimal.valueOf(290))
             .build()
         InmemoryProductRepository.save(table)
         TEST_DATA["table"] = table
