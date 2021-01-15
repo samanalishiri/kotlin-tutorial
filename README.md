@@ -1,13 +1,14 @@
 # kotlin-tutorial step by step 
 
-# Bakery
+# Online Shopping
 ### Background:
-A bakery used to base the price of their produce on an individual item cost. So if a customer ordered
-10 cross buns then they would be charged 10x the cost of single bun. The bakery has decided to start
-selling their produce prepackaged in bunches and charging the customer on a per pack basis. So if the
-shop sold vegemite scroll in packs of 3 and 5 and a customer ordered 8 they would get a pack of 3 and
-a pack of 5. The bakery currently sells the following products:
-Name Code Packs
+A shopping used the price of their produce on an individual item cost. Also, the shopping 
+provides prepackaging ability for some items, it means if a customer wants to buy the items he will 
+receive a few packed produce. The packed produce is chipper than sum of product cost. 
+
+The shopping is able to apply discount to products.
+
+A sample for prepacked product:
 
 | name             | code         | pack                             |
 | :---:            | :---:        | :---:                            |
@@ -39,23 +40,14 @@ A successfully passing test(s) that demonstrates the following output:
 ```
 ### Prerequisites
 - Java 8
+- Kotlin  
 - maven 3
 
 ### Build
 `mvn clean install`
 
 ### Test
-`mvn clean test`
+`mvn clean packge test`
 
 ### Sonar
 run `sonar-scanner` command in project root folder
-
-##prerequest
-    java  1.8
-    kotlin 1.3
-
-##build
-    mvn clean install
-
-##test
-    mvn test
