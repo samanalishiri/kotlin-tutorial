@@ -65,12 +65,6 @@ class Pack : AbstractModel<Int?>, Knapsack {
             return this
         }
 
-        fun oneProductPackage(): Pack {
-            qty(1)
-            price(product.price)
-            return Pack(this)
-        }
-
         override fun build(): Pack = Pack(this)
     }
 

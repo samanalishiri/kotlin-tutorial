@@ -25,6 +25,8 @@ class Product : AbstractModel<Int?> {
 
     var packs: MutableList<Pack>
 
+    var discount: MutableList<Discount>
+
     private constructor(builder: Builder) : super(builder) {
         this.name = builder.name
         this.code = builder.code
@@ -32,6 +34,7 @@ class Product : AbstractModel<Int?> {
         this.group = builder.group
         this.group.products.add(this)
         this.packs = builder.packs
+        this.discount = builder.discount
     }
 
     override fun toString(): String {
@@ -39,6 +42,7 @@ class Product : AbstractModel<Int?> {
             .append(String.format("%1s ", name))
             .append(String.format("%1s ", code))
             .append(packs.joinToString(prefix = "[", postfix = "]"))
+            .append(discount.joinToString(prefix = "[", postfix = "]"))
             .toString();
     }
 
@@ -54,6 +58,8 @@ class Product : AbstractModel<Int?> {
             private set
 
         var packs: MutableList<Pack> = mutableListOf()
+
+        var discount: MutableList<Discount> = mutableListOf()
 
         fun name(name: String): Builder {
             this.name = name
@@ -80,12 +86,18 @@ class Product : AbstractModel<Int?> {
             return this
         }
 
+        fun discount(vararg discount: Discount): Builder {
+            this.discount.addAll(discount)
+            return this
+        }
+
         override fun from(m: Product): Builder {
             super.from(m)
             this.name = m.name
             this.code = m.code
             this.price = m.price
             this.packs.addAll(0, m.packs)
+            this.discount.addAll(0, m.discount)
             return this
         }
 
