@@ -16,5 +16,7 @@ class InitStorage {
         storage.create(Pack.MAP_NAME)
         storage.create(OrderItem.MAP_NAME)
         storage.create(Order.MAP_NAME)
+        storage.create(ProductDiscount.MAP_NAME)
+        storage.create(PackDiscount.MAP_NAME)
     }
 }

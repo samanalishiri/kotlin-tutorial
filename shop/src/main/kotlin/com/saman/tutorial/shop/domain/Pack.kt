@@ -20,9 +20,12 @@ class Pack : AbstractModel<Int?>, Knapsack {
 
     var product: Product
 
+    var discount: MutableList<PackDiscount>
+
     private constructor(builder: Builder) : super(builder) {
         this.qty = builder.qty
         this.price = builder.price
+        this.discount = builder.discount
         this.product = builder.product
         this.product.packs.add(this)
     }
@@ -44,6 +47,8 @@ class Pack : AbstractModel<Int?>, Knapsack {
         var product: Product
             private set
 
+        var discount: MutableList<PackDiscount> = mutableListOf()
+
         constructor(product: Product) {
             this.product = product
         }
@@ -58,10 +63,16 @@ class Pack : AbstractModel<Int?>, Knapsack {
             return this
         }
 
+        fun discount(vararg discount: PackDiscount): Builder {
+            this.discount.addAll(discount)
+            return this
+        }
+
         override fun from(m: Pack): Builder {
             super.from(m)
             this.qty = m.qty
             this.price = m.price
+            this.discount.addAll(0, m.discount)
             return this
         }
 

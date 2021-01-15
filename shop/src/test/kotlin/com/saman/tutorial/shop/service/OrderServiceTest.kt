@@ -126,4 +126,23 @@ class OrderServiceTest {
 
         println("\ninput:$order\noutput:$result")
     }
+
+    @Test
+    fun test003_GivenOrder_WhenApplyDiscountOnProduct_ThenReturnDiscountedPrice() {
+        val product = TEST_DATA["vegemite"] as Product
+        val order: Order = Order.Builder().build()
+        OrderItem.Builder(order, product).qty(7).build()
+
+        val result: OrderModel = OrderService.calculate(order)
+        assertNotNull(result)
+        val vegemite = result.getItemByCode("VS5")
+        assertEquals(7, vegemite.qty)
+        assertEquals(BigDecimal.valueOf(16.31), vegemite.sum)
+        assertEquals(1, vegemite.packs.size)
+        assertEquals(7, vegemite.packs[0].count)
+        assertEquals(1, vegemite.packs[0].pack.qty)
+        assertEquals(product.price, vegemite.packs[0].pack.price)
+
+        println("\ninput:$order\noutput:$result")
+    }
 }

@@ -25,7 +25,7 @@ class Product : AbstractModel<Int?> {
 
     var packs: MutableList<Pack>
 
-    var discount: MutableList<Discount>
+    var discount: MutableList<ProductDiscount>
 
     private constructor(builder: Builder) : super(builder) {
         this.name = builder.name
@@ -59,7 +59,7 @@ class Product : AbstractModel<Int?> {
 
         var packs: MutableList<Pack> = mutableListOf()
 
-        var discount: MutableList<Discount> = mutableListOf()
+        var discount: MutableList<ProductDiscount> = mutableListOf()
 
         fun name(name: String): Builder {
             this.name = name
@@ -86,7 +86,7 @@ class Product : AbstractModel<Int?> {
             return this
         }
 
-        fun discount(vararg discount: Discount): Builder {
+        fun discount(vararg discount: ProductDiscount): Builder {
             this.discount.addAll(discount)
             return this
         }
