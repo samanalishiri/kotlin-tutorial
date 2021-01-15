@@ -1,20 +1,17 @@
 package com.saman.tutorial.shop.businesslogic
 
-import com.saman.tutorial.shop.businesslogic.PackHelper.Companion.calculateTotalPrice
-import com.saman.tutorial.shop.businesslogic.PackHelper.Companion.totalCount
 import com.saman.tutorial.shop.domain.AbstractModel
 import com.saman.tutorial.shop.domain.Group
 import com.saman.tutorial.shop.domain.Pack
 import com.saman.tutorial.shop.domain.Product
 import com.saman.tutorial.shop.model.PackModel
-import com.saman.tutorial.shop.service.OrderItemServiceTest
-import org.junit.Assert
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Before
 import org.junit.Test
 import java.math.BigDecimal
 
+/**
+ * @author Saman Alishiri, samanalishiri@gmail.com
+ */
 class PackHelperTest {
 
     companion object {
@@ -39,16 +36,14 @@ class PackHelperTest {
     @Test
     fun test_GivenListOfPack_WhenCalculateTotalPrice_ThenReturnTotalPriceAsBigDecimalNumber() {
         val product = TEST_DATA["blueberryMuffin"] as Product
-        val totalPrice =
-            calculateTotalPrice(listOf(PackModel(2, product.packs[0]), PackModel(2, product.packs[1])))
+        val totalPrice = totalPrice(listOf(PackModel(2, product.packs[0]), PackModel(2, product.packs[1])))
         assertEquals(BigDecimal.valueOf(5380, 2), totalPrice)
     }
 
     @Test
     fun test_GivenListOfPack_WhenCalculateTotalCount_ThenReturnTotalPacksAsIntegerNumber() {
         val product = TEST_DATA["blueberryMuffin"] as Product
-        val totalCount =
-            totalCount(listOf(PackModel(2, product.packs[0]), PackModel(2, product.packs[1])))
+        val totalCount = totalCount(listOf(PackModel(2, product.packs[0]), PackModel(2, product.packs[1])))
         assertEquals(4, totalCount)
     }
 }

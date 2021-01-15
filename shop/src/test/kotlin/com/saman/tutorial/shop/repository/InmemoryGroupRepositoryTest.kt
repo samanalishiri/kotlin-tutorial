@@ -41,9 +41,9 @@ class InmemoryGroupRepositoryTest : AbstractTest() {
         assertNotNull(TEST_DATA["furniture"])
         val testModel: Group = TEST_DATA["furniture"]!!
 
-        val model: Optional<Group> = repository.findById(testModel.id)
+        val model: Optional<Group> = repository.findById(testModel.identity)
         assertTrue(model.isPresent)
-        assertEquals(testModel.id, model.get().id)
+        assertEquals(testModel.identity, model.get().identity)
         assertEquals(testModel.name, model.get().name)
         assertEquals(testModel.version, model.get().version)
     }
@@ -52,7 +52,7 @@ class InmemoryGroupRepositoryTest : AbstractTest() {
     fun test003_update_GivenChangedData_WhenUpdate_ThenApplyNewChanges() {
         assertNotNull(TEST_DATA["furniture"])
         val testModel: Group = TEST_DATA["furniture"]!!
-        val id = testModel.id
+        val id = testModel.identity
         assertNotNull(id)
 
         val preUpdateModel: Optional<Group> = repository.findById(id)
@@ -62,7 +62,7 @@ class InmemoryGroupRepositoryTest : AbstractTest() {
 
         val afterUpdateModel: Optional<Group> = repository.findById(id)
         assertTrue(afterUpdateModel.isPresent)
-        assertEquals(testModel.id, afterUpdateModel.get().id)
+        assertEquals(testModel.identity, afterUpdateModel.get().identity)
         assertEquals(model.name, afterUpdateModel.get().name)
         assertEquals(testModel.version + 1, afterUpdateModel.get().version)
     }
@@ -71,12 +71,11 @@ class InmemoryGroupRepositoryTest : AbstractTest() {
     fun test004_deleteById_GivenIdAsParam_WhenDeleteById_ThenDeleteFromStorage() {
         assertNotNull(TEST_DATA["furniture"])
         val testModel: Group = TEST_DATA["furniture"]!!
-        val id = testModel.id
+        val id = testModel.identity
         assertNotNull(id)
 
         repository.deleteById(id)
         val model: Optional<Group> = repository.findById(id)
         assertFalse(model.isPresent)
     }
-
 }

@@ -1,6 +1,5 @@
 package com.saman.tutorial.shop.storage
 
-import java.util.*
 import java.util.Optional.ofNullable
 
 /**
@@ -13,9 +12,8 @@ class TestStorage : Storage {
         map.putIfAbsent(name, mutableMapOf())
     }
 
-    override fun <I, M> get(name: String): Optional<MutableMap<I, M>> {
-        return ofNullable(map[name] as MutableMap<I, M>)
-    }
+    @Suppress("UNCHECKED_CAST")
+    override fun <I, M> get(name: String) = ofNullable(map[name] as MutableMap<I, M>)
 
     override fun drop(name: String) {
         map.remove(name)
@@ -29,9 +27,8 @@ class TestStorage : Storage {
         map[name]!!.putIfAbsent(id as Any, value as Any)
     }
 
-    override fun <I, M> get(name: String, id: I): Optional<M> {
-        return ofNullable(map[name]?.get(id as Any) as M)
-    }
+    @Suppress("UNCHECKED_CAST")
+    override fun <I, M> get(name: String, id: I) = ofNullable(map[name]?.get(id as Any) as M)
 
     override fun <I, M> update(name: String, id: I, value: M) {
         map[name]!![id as Any] = value as Any

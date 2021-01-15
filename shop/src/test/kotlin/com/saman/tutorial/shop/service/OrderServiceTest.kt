@@ -2,17 +2,13 @@ package com.saman.tutorial.shop.service
 
 import com.saman.tutorial.shop.domain.*
 import com.saman.tutorial.shop.model.OrderModel
-import com.saman.tutorial.shop.model.PackModel
-import com.saman.tutorial.shop.utils.CollectionUtils.Companion.joinString
-import com.saman.tutorial.shop.utils.CollectionUtils.Companion.mapTo
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.FixMethodOrder
+import org.junit.Test
 import org.junit.runners.MethodSorters
 import java.math.BigDecimal
-import java.util.function.Function
 
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
@@ -76,7 +72,7 @@ class OrderServiceTest {
         assertNotNull(result)
 
         val vegemite = result.getItemByCode("VS5")
-        assertEquals(10, vegemite.qty)
+        assertEquals(10, vegemite.item.qty)
         assertEquals(BigDecimal.valueOf(17.98), vegemite.sum)
         assertEquals(1, vegemite.packs.size)
         assertEquals(2, vegemite.packs[0].count)
@@ -84,7 +80,7 @@ class OrderServiceTest {
         assertEquals(BigDecimal.valueOf(8.99), vegemite.packs[0].pack.price)
 
         val blueberryMuffin = result.getItemByCode("MB11")
-        assertEquals(14, blueberryMuffin.qty)
+        assertEquals(14, blueberryMuffin.item.qty)
         assertEquals(BigDecimal.valueOf(5380, 2), blueberryMuffin.sum)
         assertEquals(2, blueberryMuffin.packs.size)
         assertEquals(2, blueberryMuffin.packs[0].count)
@@ -95,7 +91,7 @@ class OrderServiceTest {
         assertEquals(BigDecimal.valueOf(9.95), blueberryMuffin.packs[1].pack.price)
 
         val croissant = result.getItemByCode("CF")
-        assertEquals(13, croissant.qty)
+        assertEquals(13, croissant.item.qty)
         assertEquals(BigDecimal.valueOf(25.85), croissant.sum)
         assertEquals(2, croissant.packs.size)
         assertEquals(2, croissant.packs[0].count)
@@ -117,14 +113,12 @@ class OrderServiceTest {
         val result: OrderModel = OrderService.calculate(order)
         assertNotNull(result)
         val vegemite = result.getItemByCode("VS5")
-        assertEquals(7, vegemite.qty)
+        assertEquals(7, vegemite.item.qty)
         assertEquals(BigDecimal.valueOf(16.31), vegemite.sum)
         assertEquals(1, vegemite.packs.size)
         assertEquals(7, vegemite.packs[0].count)
         assertEquals(1, vegemite.packs[0].pack.qty)
         assertEquals(product.price, vegemite.packs[0].pack.price)
-
-        println("\ninput:$order\noutput:$result")
     }
 
     @Test
@@ -135,14 +129,5 @@ class OrderServiceTest {
 
         val result: OrderModel = OrderService.calculate(order)
         assertNotNull(result)
-        val vegemite = result.getItemByCode("VS5")
-        assertEquals(7, vegemite.qty)
-        assertEquals(BigDecimal.valueOf(16.31), vegemite.sum)
-        assertEquals(1, vegemite.packs.size)
-        assertEquals(7, vegemite.packs[0].count)
-        assertEquals(1, vegemite.packs[0].pack.qty)
-        assertEquals(product.price, vegemite.packs[0].pack.price)
-
-        println("\ninput:$order\noutput:$result")
     }
 }

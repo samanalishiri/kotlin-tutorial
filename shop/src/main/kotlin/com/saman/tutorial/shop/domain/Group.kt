@@ -3,24 +3,17 @@ package com.saman.tutorial.shop.domain
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
-class Group : AbstractModel<Int?> {
+class Group private constructor(builder: Builder) : AbstractModel<Int?>(builder) {
 
     companion object {
         const val MAP_NAME: String = "GROUP"
     }
 
-    val name: String
+    val name: String = builder.name
 
-    val products: MutableList<Product>
+    val products: MutableList<Product> = builder.products
 
-    private constructor(builder: Builder) : super(builder) {
-        this.name = builder.name
-        this.products = builder.products
-    }
-
-    override fun toString(): String {
-        return this.name
-    }
+    override fun toString() = this.name
 
     class Builder : AbstractBuilder<Int?, Group>() {
 
@@ -35,11 +28,13 @@ class Group : AbstractModel<Int?> {
             return this
         }
 
+        @Suppress("unused")
         fun products(product: MutableList<Product>): Builder {
             this.products = product
             return this
         }
 
+        @Suppress("unused")
         fun products(product: Product): Builder {
             this.products.add(product)
             return this
@@ -52,6 +47,5 @@ class Group : AbstractModel<Int?> {
         }
 
         override fun build(): Group = Group(this)
-
     }
 }

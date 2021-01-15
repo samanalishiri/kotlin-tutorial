@@ -1,6 +1,6 @@
 package com.saman.tutorial.shop.repository
 
-import com.saman.tutorial.shop.domain.KeySequences
+import com.saman.tutorial.shop.domain.PRODUCT_SEQUENCE
 import com.saman.tutorial.shop.domain.Product
 import java.util.stream.Collectors
 
@@ -10,19 +10,13 @@ import java.util.stream.Collectors
 object InmemoryProductRepository : AbstractRepository<Int?, Product, Product.Builder>() {
 
 
-    override fun getMapName(): String {
-        return Product.MAP_NAME
-    }
+    override fun getMapName() = Product.MAP_NAME
 
-    override fun getBuilder(product: Product): Product.Builder {
-        return Product.Builder(product.group)
-    }
+    override fun getBuilder(m: Product) = Product.Builder(m.group)
 
-    override fun nextId(): Int {
-        return KeySequences.PRODUCT_SEQUENCE.getAndIncrement()
-    }
+    override fun nextId() = PRODUCT_SEQUENCE.getAndIncrement()
 
-    override fun completeRelationReferences(model: Product) {
+    override fun beforeSave(model: Product) {
         model.packs = model.packs.stream()
             .map {
                 InmemoryPackRepository.save(it)

@@ -3,17 +3,14 @@ package com.saman.tutorial.shop.domain
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
-abstract class AbstractModel<I> : Identity<I> {
+abstract class AbstractModel<I> protected constructor(builder: AbstractBuilder<*, *>) : Identity<I> {
 
-    override var id: I?
+    @Suppress("UNCHECKED_CAST")
+    var identity: I? = builder.id as I
 
-    var version: Int
+    var version: Int = builder.version
 
-    protected constructor(builder: Any) {
-        builder as AbstractBuilder<I, AbstractModel<I>>
-        this.id = builder.id
-        this.version = builder.version
-    }
+    override fun getId() = this.identity
 
     abstract class AbstractBuilder<I, M : AbstractModel<I>> {
 
@@ -34,7 +31,7 @@ abstract class AbstractModel<I> : Identity<I> {
         }
 
         open fun from(m: M): AbstractBuilder<I, M> {
-            this.id = m.id
+            this.id = m.identity
             this.version = m.version
             return this
         }

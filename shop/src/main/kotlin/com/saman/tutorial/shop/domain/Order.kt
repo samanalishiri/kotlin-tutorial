@@ -1,42 +1,34 @@
 package com.saman.tutorial.shop.domain
 
-import com.saman.tutorial.shop.utils.CollectionUtils.Companion.mapTo
-import com.saman.tutorial.shop.utils.CollectionUtils.Companion.joinString
-import java.util.function.Function
+import com.saman.tutorial.shop.utils.convertAndJoinAsLine
 
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
-class Order : AbstractModel<Int?> {
+class Order private constructor(builder: Builder) : AbstractModel<Int?>(builder) {
 
     companion object {
-        fun creatEmpty(): Order {
-            return Builder().build()
-        }
-
         const val MAP_NAME: String = "ORDER"
+
+        fun creatEmpty() = Builder().build()
     }
 
-    var items: MutableList<OrderItem>
+    var items: MutableList<OrderItem> = builder.item
 
-    private constructor(builder: Builder) : super(builder) {
-        this.items = builder.item
-    }
-
-    override fun toString(): String {
-        return joinString(mapTo(items, Function { it.toString() }))
-    }
+    override fun toString() = convertAndJoinAsLine(items)
 
     class Builder : AbstractBuilder<Int?, Order>() {
 
         var item: MutableList<OrderItem> = mutableListOf()
             private set
 
+        @Suppress("unused")
         fun items(product: MutableList<OrderItem>): Builder {
             this.item = product
             return this
         }
 
+        @Suppress("unused")
         fun item(product: OrderItem): Builder {
             this.item.add(product)
             return this
@@ -49,6 +41,5 @@ class Order : AbstractModel<Int?> {
         }
 
         override fun build(): Order = Order(this)
-
     }
 }

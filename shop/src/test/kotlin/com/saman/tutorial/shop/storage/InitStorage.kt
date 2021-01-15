@@ -5,7 +5,7 @@ import com.saman.tutorial.shop.domain.*
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
-object InitStorage {
+class InitStorage {
 
     init {
         loadStorage()

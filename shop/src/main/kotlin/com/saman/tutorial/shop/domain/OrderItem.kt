@@ -3,28 +3,23 @@ package com.saman.tutorial.shop.domain
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
-class OrderItem : AbstractModel<Int?> {
+class OrderItem private constructor(builder: Builder) : AbstractModel<Int?>(builder) {
 
     companion object {
         const val MAP_NAME: String = "ORDER_ITEM"
     }
 
-    var qty: Int
+    var qty: Int = builder.qty
 
-    var product: Product
+    var product: Product = builder.product
 
-    var order: Order
+    var order: Order = builder.order
 
-    private constructor(builder: Builder) : super(builder) {
-        this.qty = builder.qty
-        this.product = builder.product
-        this.order = builder.order
+    init {
         this.order.items.add(this)
     }
 
-    override fun toString(): String {
-        return String.format("%d @ %s", this.qty, this.product.name)
-    }
+    override fun toString() = String.format("%d @ %s", this.qty, this.product.name)
 
     class Builder(val order: Order, val product: Product) : AbstractBuilder<Int?, OrderItem>() {
         var qty: Int = 0
@@ -41,8 +36,6 @@ class OrderItem : AbstractModel<Int?> {
             return this
         }
 
-        override fun build(): OrderItem {
-            return OrderItem(this)
-        }
+        override fun build() = OrderItem(this)
     }
 }

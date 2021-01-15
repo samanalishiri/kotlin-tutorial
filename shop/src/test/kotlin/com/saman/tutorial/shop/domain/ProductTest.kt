@@ -20,7 +20,7 @@ class ProductTest {
             .build()
 
         assertNotNull(product)
-        Assert.assertNull(product.id)
+        Assert.assertNull(product.identity)
         assertEquals(0, product.version)
         assertEquals("Chair", product.name)
         assertEquals("001", product.code)

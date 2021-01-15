@@ -3,31 +3,27 @@ package com.saman.tutorial.shop.domain
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
-class PackDiscount : Discount<Int?> {
+class PackDiscount private constructor(builder: Builder) : Discount<Int?>(builder) {
 
     companion object {
-        fun zeroDiscount(product: Pack) = Builder(product, 0).build()
-
         const val MAP_NAME: String = "PACK_DISCOUNT"
+
+        @Suppress("unused")
+        fun zeroDiscount(product: Pack) = Builder(product, 0).build()
     }
 
-    var pack: Pack
+    var pack: Pack = builder.pack
 
-    private constructor(builder: Builder) : super(builder as DiscountBuilder<Int?, Discount<Int?>>) {
-        this.pack = builder.pack
+    init {
         this.pack.discount.add(this)
     }
 
     override fun toString(): String = String.format("%d % discount", this.percent)
 
-    class Builder : DiscountBuilder<Int?, PackDiscount> {
+    class Builder(product: Pack, percent: Int) : DiscountBuilder<Int?, PackDiscount>(percent) {
 
-        var pack: Pack
+        var pack: Pack = product
             private set
-
-        constructor(product: Pack, percent: Int): super(percent) {
-            this.pack = product
-        }
 
         override fun from(m: PackDiscount): Builder {
             super.from(m)

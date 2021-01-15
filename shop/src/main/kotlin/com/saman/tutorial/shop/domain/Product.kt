@@ -5,46 +5,37 @@ import java.math.BigDecimal
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
-class Product : AbstractModel<Int?> {
+class Product private constructor(builder: Builder) : AbstractModel<Int?>(builder) {
 
     companion object {
-        fun createEmpty(): Product {
-            return Builder(Group.Builder().build()).build()
-        }
-
         const val MAP_NAME: String = "PRODUCT"
+
+        @Suppress("unused")
+        fun createEmpty() = Builder(Group.Builder().build()).build()
     }
 
-    var name: String
+    var name: String = builder.name
 
-    var code: String
+    var code: String = builder.code
 
-    var price: BigDecimal
+    var price: BigDecimal = builder.price
 
-    var group: Group
+    var group: Group = builder.group
 
-    var packs: MutableList<Pack>
+    var packs: MutableList<Pack> = builder.packs
 
-    var discount: MutableList<ProductDiscount>
+    var discount: MutableList<ProductDiscount> = builder.discount
 
-    private constructor(builder: Builder) : super(builder) {
-        this.name = builder.name
-        this.code = builder.code
-        this.price = builder.price
-        this.group = builder.group
+    init {
         this.group.products.add(this)
-        this.packs = builder.packs
-        this.discount = builder.discount
     }
 
-    override fun toString(): String {
-        return StringBuilder()
-            .append(String.format("%1s ", name))
-            .append(String.format("%1s ", code))
-            .append(packs.joinToString(prefix = "[", postfix = "]"))
-            .append(discount.joinToString(prefix = "[", postfix = "]"))
-            .toString();
-    }
+    override fun toString() = StringBuilder()
+        .append(String.format("%1s ", name))
+        .append(String.format("%1s ", code))
+        .append(packs.joinToString(prefix = "[", postfix = "]"))
+        .append(discount.joinToString(prefix = "[", postfix = "]"))
+        .toString()
 
     class Builder(val group: Group) : AbstractBuilder<Int?, Product>() {
 
@@ -76,16 +67,19 @@ class Product : AbstractModel<Int?> {
             return this
         }
 
+        @Suppress("unused")
         fun packs(packs: MutableList<Pack>): Builder {
             this.packs = packs
             return this
         }
 
+        @Suppress("unused")
         fun packs(vararg pack: Pack): Builder {
             this.packs.addAll(pack)
             return this
         }
 
+        @Suppress("unused")
         fun discount(vararg discount: ProductDiscount): Builder {
             this.discount.addAll(discount)
             return this

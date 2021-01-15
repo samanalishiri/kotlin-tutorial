@@ -4,8 +4,8 @@ import com.saman.tutorial.shop.domain.Order
 import com.saman.tutorial.shop.model.OrderItemModel
 import com.saman.tutorial.shop.model.OrderModel
 import com.saman.tutorial.shop.repository.InmemoryOrderRepository
-import com.saman.tutorial.shop.service.OrderItemService.findMinimumPacks
-import com.saman.tutorial.shop.utils.CollectionUtils.Companion.mapTo
+import com.saman.tutorial.shop.service.OrderItemService.getMinimumPacks
+import com.saman.tutorial.shop.utils.mapTo
 import java.util.function.Function
 
 /**
@@ -13,5 +13,5 @@ import java.util.function.Function
  */
 object OrderService : AbstractService<Int?, Order, Order.Builder, InmemoryOrderRepository>(InmemoryOrderRepository) {
 
-    fun calculate(order: Order) = OrderModel(mapTo(order.items, Function { OrderItemModel(it, findMinimumPacks(it)) }))
+    fun calculate(order: Order) = OrderModel(mapTo(order.items, Function { OrderItemModel(it, getMinimumPacks(it)) }))
 }

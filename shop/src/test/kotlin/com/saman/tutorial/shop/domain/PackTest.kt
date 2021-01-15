@@ -4,6 +4,9 @@ import org.junit.Assert.*
 import org.junit.Test
 import java.math.BigDecimal
 
+/**
+ * @author Saman Alishiri, samanalishiri@gmail.com
+ */
 class PackTest {
 
     @Test
@@ -16,7 +19,7 @@ class PackTest {
             .build()
 
         assertNotNull(pack)
-        assertNull(pack.id)
+        assertNull(pack.identity)
         assertEquals(0, pack.version)
         assertEquals(2, pack.qty)
         assertEquals(BigDecimal.valueOf(40), pack.price)
@@ -25,5 +28,4 @@ class PackTest {
         assertTrue(product == pack.product)
         assertTrue(group == pack.product.group)
     }
-
 }

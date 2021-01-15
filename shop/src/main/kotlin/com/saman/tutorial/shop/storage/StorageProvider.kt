@@ -1,15 +1,10 @@
 package com.saman.tutorial.shop.storage
 
-import java.util.*
+import java.util.ServiceLoader.load
 
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
-object StorageProvider {
+const val STORAGE_BEAN: String = "storage"
 
-    const val STORAGE_BEAN: String = "storage"
-
-    fun loadStorage() {
-        BeanFactory.register(STORAGE_BEAN, ServiceLoader.load(Storage::class.java).first())
-    }
-}
+fun loadStorage() = BeanFactory.register(STORAGE_BEAN, load(Storage::class.java).first())

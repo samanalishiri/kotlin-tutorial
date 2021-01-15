@@ -6,18 +6,15 @@ import java.util.stream.Collectors
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
-class CollectionUtils private constructor() {
 
-    companion object {
-        inline fun <T, reified R> mapTo(list: List<T>, mapper: Function<T, R>): MutableList<R> = list.stream()
-            .map(mapper)
-            .collect(Collectors.toList())
+inline fun <T, reified R> mapTo(list: List<T>, m: Function<T, R>): MutableList<R> = list.stream()
+    .map(m)
+    .collect(Collectors.toList())
 
-        inline fun <T, reified R> mapToArray(list: List<T>, mapper: Function<T, R>) = mapTo(list, mapper).toTypedArray()
+fun join(a: List<String>, s: String = ",", pr: String = "", po: String = "") = a.joinToString(s, pr, po)
 
-        fun joinString(list: List<String>, separator: String = "\n", prefix: String = "\n"): String {
-            return list.joinToString(separator = separator, prefix = prefix)
-        }
+fun joinAsLine(a: List<String>) = join(a, "\n", "\n")
 
-    }
-}
+fun <T> convertAndJoinAsLine(a: List<T>) = joinAsLine(mapTo(a, Function { it.toString() }))
+
+fun <T> convertAndJoinAsIndentedLine(a: List<T>) = join(mapTo(a, Function { it.toString() }), "\n\t", "\n\t")

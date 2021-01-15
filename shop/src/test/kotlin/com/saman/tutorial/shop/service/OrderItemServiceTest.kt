@@ -2,17 +2,13 @@ package com.saman.tutorial.shop.service
 
 import com.saman.tutorial.shop.domain.*
 import com.saman.tutorial.shop.model.PackModel
-import com.saman.tutorial.shop.utils.CollectionUtils
-import com.saman.tutorial.shop.utils.CollectionUtils.Companion.joinString
-import com.saman.tutorial.shop.utils.CollectionUtils.Companion.mapTo
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.FixMethodOrder
+import org.junit.Test
 import org.junit.runners.MethodSorters
 import java.math.BigDecimal
-import java.util.function.Function
 
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
@@ -72,7 +68,7 @@ class OrderItemServiceTest {
             .qty(10)
             .build()
 
-        val result: List<PackModel> = OrderItemService.findMinimumPacks(orderItem)
+        val result: List<PackModel> = OrderItemService.getMinimumPacks(orderItem)
 
         assertNotNull(result)
         assertEquals(10, orderItem.qty)
@@ -80,8 +76,6 @@ class OrderItemServiceTest {
         assertEquals(2, result[0].count)
         assertEquals(5, result[0].pack.qty)
         assertEquals(BigDecimal.valueOf(8.99), result[0].pack.price)
-
-        println(joinString(mapTo(result, Function { it.toString() })))
     }
 
     @Test
@@ -92,7 +86,7 @@ class OrderItemServiceTest {
             .qty(14)
             .build()
 
-        val result: List<PackModel> = OrderItemService.findMinimumPacks(orderItem)
+        val result: List<PackModel> = OrderItemService.getMinimumPacks(orderItem)
 
         assertNotNull(result)
         assertEquals(14, orderItem.qty)
@@ -103,8 +97,6 @@ class OrderItemServiceTest {
         assertEquals(2, result[1].count)
         assertEquals(2, result[1].pack.qty)
         assertEquals(BigDecimal.valueOf(9.95), result[1].pack.price)
-
-        println(joinString(mapTo(result, Function { it.toString() })))
     }
 
     @Test
@@ -115,7 +107,7 @@ class OrderItemServiceTest {
             .qty(13)
             .build()
 
-        val result: List<PackModel> = OrderItemService.findMinimumPacks(orderItem)
+        val result: List<PackModel> = OrderItemService.getMinimumPacks(orderItem)
 
         assertNotNull(result)
         assertEquals(13, orderItem.qty)
@@ -126,8 +118,6 @@ class OrderItemServiceTest {
         assertEquals(1, result[1].count)
         assertEquals(3, result[1].pack.qty)
         assertEquals(BigDecimal.valueOf(5.95), result[1].pack.price)
-
-        println(joinString(mapTo(result, Function { it.toString() })))
     }
 
 }

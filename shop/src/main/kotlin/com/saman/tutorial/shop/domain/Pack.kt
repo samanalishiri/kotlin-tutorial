@@ -6,7 +6,7 @@ import java.math.BigDecimal
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
-class Pack : AbstractModel<Int?>, Knapsack {
+class Pack private constructor(builder: Builder) : AbstractModel<Int?>(builder), Knapsack {
 
     companion object {
         fun createUnitPack(product: Product) = Builder(product).qty(1).price(product.price).build()
@@ -14,19 +14,15 @@ class Pack : AbstractModel<Int?>, Knapsack {
         const val MAP_NAME: String = "PACK"
     }
 
-    var qty: Int
+    var qty: Int = builder.qty
 
-    var price: BigDecimal
+    var price: BigDecimal = builder.price
 
-    var product: Product
+    var product: Product = builder.product
 
-    var discount: MutableList<PackDiscount>
+    var discount: MutableList<PackDiscount> = builder.discount
 
-    private constructor(builder: Builder) : super(builder) {
-        this.qty = builder.qty
-        this.price = builder.price
-        this.discount = builder.discount
-        this.product = builder.product
+    init {
         this.product.packs.add(this)
     }
 
@@ -36,7 +32,7 @@ class Pack : AbstractModel<Int?>, Knapsack {
 
     override fun toString(): String = String.format("%d @ %s", this.qty, convertToMoneyFormat(this.price))
 
-    class Builder : AbstractBuilder<Int?, Pack> {
+    class Builder(product: Product) : AbstractBuilder<Int?, Pack>() {
 
         var qty: Int = 0
             private set
@@ -44,14 +40,10 @@ class Pack : AbstractModel<Int?>, Knapsack {
         var price: BigDecimal = BigDecimal.ZERO
             private set
 
-        var product: Product
+        var product: Product = product
             private set
 
         var discount: MutableList<PackDiscount> = mutableListOf()
-
-        constructor(product: Product) {
-            this.product = product
-        }
 
         fun qty(qty: Int): Builder {
             this.qty = qty
@@ -63,6 +55,7 @@ class Pack : AbstractModel<Int?>, Knapsack {
             return this
         }
 
+        @Suppress("unused")
         fun discount(vararg discount: PackDiscount): Builder {
             this.discount.addAll(discount)
             return this
@@ -78,5 +71,4 @@ class Pack : AbstractModel<Int?>, Knapsack {
 
         override fun build(): Pack = Pack(this)
     }
-
 }

@@ -2,7 +2,8 @@ package com.saman.tutorial.collection
 
 import com.saman.tutorial.collection.NumberArray.Companion.arrayOfInts
 import org.hamcrest.CoreMatchers
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertThat
 import org.junit.Test
 
 class NumberArrayTest {

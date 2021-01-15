@@ -26,7 +26,7 @@ class InmemoryOrderRepositoryTest : AbstractTest() {
         InmemoryGroupRepository.save(group)
         TEST_DATA["furniture"] = group
 
-        var chair: Product = Product.Builder(group).name("Chair")
+        val chair: Product = Product.Builder(group).name("Chair")
             .code("001")
             .price(BigDecimal.valueOf(578, 1))
             .build()
@@ -37,7 +37,7 @@ class InmemoryOrderRepositoryTest : AbstractTest() {
         InmemoryProductRepository.save(chair)
         TEST_DATA["chair"] = chair
 
-        var table: Product = Product.Builder(group)
+        val table: Product = Product.Builder(group)
             .name("Table")
             .code("002")
             .price(BigDecimal.valueOf(14999, 2))
@@ -65,7 +65,7 @@ class InmemoryOrderRepositoryTest : AbstractTest() {
         assertNotNull(TEST_DATA["table"])
         val table: Product = TEST_DATA["table"] as Product
 
-        var order: Order = Order.Builder().build()
+        val order: Order = Order.Builder().build()
         OrderItem.Builder(order, chair).qty(6).build()
         OrderItem.Builder(order, table).qty(1).build()
 

@@ -1,10 +1,12 @@
-# kotlin-tutorial step by step 
+# kotlin-tutorial step by step
 
 # Online Shopping
+
 ### Background:
-A shopping used the price of their produce on an individual item cost. Also, the shopping 
-provides prepackaging ability for some items, it means if a customer wants to buy the items he will 
-receive a few packed produce. The packed produce is chipper than sum of product cost. 
+
+A shopping used the price of their produce on an individual item cost. Also, the shopping provides prepackaging ability
+for some items, it means if a customer wants to buy the items he will receive a few packed produce. The packed produce
+is chipper than sum of product cost.
 
 The shopping is able to apply discount to products.
 
@@ -15,19 +17,27 @@ A sample for prepacked product:
 | Vegemite         | Scroll VS5   | 3 @ $6.99, 5 @ $8.99             |
 | Blueberry Muffin | MB11         | 2 @ $9.95, 5 @ $16.95, 8 @ $24.95|
 | Croissant        | CF           | 3 @ $5.95, 5 @ $9.95, 9 @ $16.99 |
+
 ### Story:
-Given a customer order you are required to determine the cost and pack breakdown for each product.
-To save on shipping space each order should contain the minimal number of packs.
+
+Given a customer order you are required to determine the cost and pack breakdown for each product. To save on shipping
+space each order should contain the minimal number of packs.
+
 ##### Input:
-Each order has a series of lines with each line containing the number of items followed by the
-product code. An example input:
+
+Each order has a series of lines with each line containing the number of items followed by the product code. An example
+input:
+
 ```
 10 VS5
 14 MB11
 13 CF
 ```
+
 ##### Output:
+
 A successfully passing test(s) that demonstrates the following output:
+
 ```
 10 VS5 $17.98
     2 x 5 $8.99
@@ -38,16 +48,21 @@ A successfully passing test(s) that demonstrates the following output:
     2 x 5 $9.95
     1 x 3 $5.95
 ```
+
 ### Prerequisites
+
 - Java 8
-- Kotlin  
+- Kotlin
 - maven 3
 
 ### Build
+
 `mvn clean install`
 
 ### Test
+
 `mvn clean packge test`
 
 ### Sonar
+
 run `sonar-scanner` command in project root folder

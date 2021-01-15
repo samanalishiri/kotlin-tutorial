@@ -72,9 +72,9 @@ class InmemoryProductRepositoryTest : AbstractTest() {
         assertNotNull(TEST_DATA["chair"])
         val testModel: Product = TEST_DATA["chair"] as Product
 
-        val model: Optional<Product> = productRepository.findById(testModel.id)
+        val model: Optional<Product> = productRepository.findById(testModel.identity)
         assertTrue(model.isPresent)
-        assertEquals(testModel.id, model.get().id)
+        assertEquals(testModel.identity, model.get().identity)
         assertEquals(testModel.name, model.get().name)
         assertEquals(testModel.code, model.get().code)
         assertEquals(testModel.price, model.get().price)
@@ -82,21 +82,21 @@ class InmemoryProductRepositoryTest : AbstractTest() {
 
         val group = model.get().group
         assertNotNull(group)
-        assertNotNull(group.id)
+        assertNotNull(group.identity)
         assertEquals("Furniture", group.name)
         assertEquals(0, group.version)
 
         val packs = model.get().packs
         assertEquals(1, packs.size)
-        assertEquals(2, packs.get(0).qty)
-        assertEquals(BigDecimal.valueOf(40), packs.get(0).price)
+        assertEquals(2, packs[0].qty)
+        assertEquals(BigDecimal.valueOf(40), packs[0].price)
     }
 
     @Test
     fun test003_update_GivenChangedData_WhenUpdate_ThenApplyNewChanges() {
         assertNotNull(TEST_DATA["chair"])
         val testModel: Product = TEST_DATA["chair"] as Product
-        val id = testModel.id
+        val id = testModel.identity
         assertNotNull(id)
 
         assertNotNull(TEST_DATA["furniture"])
@@ -109,7 +109,7 @@ class InmemoryProductRepositoryTest : AbstractTest() {
 
         val afterUpdateModel: Optional<Product> = productRepository.findById(id)
         assertTrue(afterUpdateModel.isPresent)
-        assertEquals(testModel.id, afterUpdateModel.get().id)
+        assertEquals(testModel.identity, afterUpdateModel.get().identity)
         assertEquals(model.name, afterUpdateModel.get().name)
         assertEquals(testModel.code, afterUpdateModel.get().code)
         assertEquals(testModel.price, afterUpdateModel.get().price)
@@ -120,7 +120,7 @@ class InmemoryProductRepositoryTest : AbstractTest() {
     fun test004_deleteById_GivenIdAsParam_WhenDeleteById_ThenDeleteFromStorage() {
         assertNotNull(TEST_DATA["chair"])
         val testModel: Product = TEST_DATA["chair"] as Product
-        val id = testModel.id
+        val id = testModel.identity
         assertNotNull(id)
 
         productRepository.deleteById(id)

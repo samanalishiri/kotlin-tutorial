@@ -2,11 +2,11 @@ package com.saman.tutorial.shop.repository
 
 import com.saman.tutorial.shop.domain.AbstractModel
 import com.saman.tutorial.shop.storage.BeanFactory
+import com.saman.tutorial.shop.storage.STORAGE_BEAN
 import com.saman.tutorial.shop.storage.Storage
-import com.saman.tutorial.shop.storage.StorageProvider.STORAGE_BEAN
 import java.util.*
 import java.util.Optional.ofNullable
-import java.util.stream.Collectors
+import java.util.stream.Collectors.toList
 
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
@@ -24,36 +24,27 @@ abstract class AbstractRepository<I, M : AbstractModel<I>, B : AbstractModel.Abs
 
     override fun save(m: M): Optional<I> {
         val id = nextId()
-        m.id = id
-        completeRelationReferences(m)
+        m.identity = id
+        beforeSave(m)
         storage.push(getMapName(), id, m)
         return ofNullable(id)
     }
 
-    protected open fun completeRelationReferences(model: M) {
+    protected open fun beforeSave(model: M) {}
 
-    }
+    override fun findById(id: I): Optional<M> = storage.get(getMapName(), id)
 
-    override fun findById(id: I): Optional<M> {
-        return storage.get(getMapName(), id)
-    }
+    override fun update(id: I, m: M) = storage.update(getMapName(), id, getBuilder(m).from(m).version().build())
 
-    override fun update(id: I, m: M) {
-        storage.update(getMapName(), id, getBuilder(m).from(m).version().build())
-    }
-
-    override fun deleteById(id: I) {
-        storage.delete(getMapName(), id)
-    }
+    override fun deleteById(id: I) = storage.delete(getMapName(), id)
 
     override fun findAll(): List<M> {
         val map: Optional<MutableMap<I, M>> = storage.get(getMapName())
         if (!map.isPresent)
             return Collections.emptyList()
 
-        return map.get().entries
-            .stream()
+        return map.get().entries.stream()
             .map { it.value }
-            .collect(Collectors.toList())
+            .collect(toList())
     }
 }
