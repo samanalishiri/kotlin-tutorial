@@ -26,5 +26,6 @@ class ProductTest {
         assertEquals("001", product.code)
         assertEquals(BigDecimal.valueOf(2050, 2), product.price)
         assertNotNull(product.group)
+        Assert.assertTrue(group == product.group)
     }
 }

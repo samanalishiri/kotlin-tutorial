@@ -21,6 +21,8 @@ class OrderItemTest {
         assertEquals(0, orderItem.version)
         assertEquals(2, orderItem.qty)
         assertNotNull(orderItem.product)
+        assertTrue(order == orderItem.order)
+        assertTrue(product == orderItem.product)
     }
 
 }

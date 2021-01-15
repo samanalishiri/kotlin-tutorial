@@ -21,6 +21,9 @@ class PackTest {
         assertEquals(2, pack.qty)
         assertEquals(BigDecimal.valueOf(40), pack.price)
         assertNotNull(pack.product)
+        assertTrue(group == product.group)
+        assertTrue(product == pack.product)
+        assertTrue(group == pack.product.group)
     }
 
 }
